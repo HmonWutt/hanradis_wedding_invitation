@@ -1,3 +1,98 @@
-*,*::before, *::after{
-    box-sizing: border-box;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+:root {
+  --envelope-width: 300px;
+  --envelope-color-top: #c3b1e1;
+  --envelope-color-bottom: #aa90d5;
+  --envelope-color-back: #977cc3;
+  --envelope-color-side: #a088c7;
+  --letter-color: #f3f0f8;
+  /* --letter-color: #b4d3b2; */
+}
+body {
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.envelope {
+  width: var(--envelope-width);
+  height: 200px;
+  position: relative;
+  background: var(--envelope-color);
+  cursor: pointer;
+}
+.envelope:hover .envelope-top {
+  transform: rotateX(0);
+  z-index: 2;
+}
+.letter {
+  width: 90%;
+  background: var(--letter-color);
+  height: 200px;
+  z-index: 3;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  transition: all 0.6s ease;
+  display: flex;
+  justify-content: center;
+  padding: 1em;
+}
+.envelope:hover .letter {
+  transform: translate(-50%, -100px);
+  z-index: 3;
+  transition-delay: 1s;
+}
+
+.envelope-top,
+.envelope-bottom {
+  width: var(--envelope-width);
+  position: absolute;
+  border-left: 150px solid transparent;
+  border-right: 150px solid transparent;
+}
+.envelope-top {
+  top: -150px;
+  transform: rotateX(180deg);
+  transform-origin: bottom;
+  border-bottom: 150px solid var(--envelope-color-top);
+  z-index: 6;
+  transition: all 0.8s ease-in;
+  transition-delay: 0.3s;
+}
+
+.envelope-bottom {
+  transform-origin: top;
+  border-bottom: 150px solid var(--envelope-color-bottom);
+  z-index: 4;
+  top: 50px;
+}
+.envelope-back {
+  background: var(--envelope-color-back);
+  height: 200px;
+  z-index: 1;
+  position: absolute;
+  top: -0.1px;
+  width: 100%;
+}
+.envelope-left,
+.envelope-right {
+  width: var(--envelope-width);
+  position: absolute;
+  border-top: 200px solid transparent;
+  z-index: 4;
+}
+.envelope-left {
+  left: 0;
+  border-left: 200px solid var(--envelope-color-side);
+}
+.envelope-right {
+  right: 0;
+  border-right: 200px solid var(--envelope-color-side);
 }
