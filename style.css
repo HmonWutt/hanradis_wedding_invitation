@@ -45,8 +45,8 @@ body {
   transform: translate(-50%, 0%);
   transition-timing-function: ease;
   transition-duration: 0.6s;
-  transition-property: height, width, transform, z-index;
-  transition-delay: 1s, 2s, 2.2s, 2s;
+  transition-property: height, width, transform, z-index, font-size;
+  transition-delay: 1s, 2s, 2.2s, 2s, 1s;
   display: flex;
   justify-content: center;
   padding: 1em;
@@ -56,8 +56,9 @@ body {
   width: 90vw;
   height: 70vh;
   z-index: 7;
-  transition-property: transform, width, height, z-index;
-  transition-delay: 1s, 2s, 2s, 2s;
+  font-size: 2em;
+  transition-property: transform, width, height, z-index, font-size;
+  transition-delay: 1s, 2s, 2s, 2s, 2s;
 }
 
 .envelope-top,
@@ -114,7 +115,7 @@ body {
   left: 50%;
   top: 75%;
   transform: translate(-50%, -50%);
-  transition: all 1s ease-out 3.5s;
+  transition: all 0.8s ease-out 3.5s;
   opacity: 1;
 }
 .envelope:hover img {
