@@ -34,7 +34,10 @@ body {
   transition-delay: 0.3s;
   z-index: 2;
 }
-
+.envelope:hover .letter-content {
+  opacity: 1;
+  transition-delay: 2.5s;
+}
 .letter {
   width: 90%;
   background: var(--letter-color);
@@ -44,13 +47,16 @@ body {
   left: 50%;
   transform: translate(-50%, 0%);
   transition-timing-function: ease;
-  transition-duration: 0.6s;
+  transition-duration: 1s;
   transition-property: height, width, transform, z-index, font-size;
-  transition-delay: 1s, 2s, 2.2s, 2s, 1s;
+  transition-delay: 1s, 1.5s, 2.2s, 1.5s, 1s;
   display: flex;
+  gap: 1em;
+  flex-direction: column;
   justify-content: center;
-  padding: 1em;
+  align-items: center;
 }
+
 .envelope:hover .letter {
   transform: translate(-50%, -30vh);
   width: 90vw;
@@ -122,4 +128,19 @@ body {
   transform: translate(-80%, 400%) rotateX(180deg);
   transition-delay: 0.1s;
   opacity: 0;
+}
+.letter-content {
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 auto;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  transition: opacity 1.8s ease 0.2s;
+}
+.letter-content:not(.heading) {
+  opacity: 0;
+}
+.letter-content * > {
+  width: 100%;
 }
