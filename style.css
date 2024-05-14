@@ -96,3 +96,19 @@ body {
   right: 0;
   border-right: 200px solid var(--envelope-color-side);
 }
+.envelope img {
+  position: absolute;
+  z-index: 7;
+  height: 30px;
+  width: 30px;
+  max-width: 100%;
+  left: 50%;
+  top: 75%;
+  transform: translate(-50%, -50%);
+  transition: all 2s ease;
+  opacity: 1;
+}
+.envelope:hover img {
+  transform: translate(-50%, 200%);
+  opacity: 0;
+}
