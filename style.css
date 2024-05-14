@@ -26,6 +26,7 @@ body {
   position: relative;
   background: var(--envelope-color);
   cursor: pointer;
+  box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
 }
 .envelope:hover .envelope-top {
   transform: rotateX(0);
@@ -109,6 +110,7 @@ body {
   opacity: 1;
 }
 .envelope:hover img {
-  transform: translate(-50%, 200%);
+  transform: translate(-80%, 400%);
+  transform: rotateX(180deg);
   opacity: 0;
 }
