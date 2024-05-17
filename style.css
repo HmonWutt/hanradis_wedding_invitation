@@ -57,9 +57,9 @@ body {
 }
 
 .envelope:hover .letter {
-  transform: translate(-50%, -30vh);
-  width: 70vw;
-  height: 70vh;
+  transform: translate(-50%, -35vh);
+  width: 90vw;
+  height: 90vh;
   z-index: 7;
   font-size: 2em;
   transition-property: transform, width, height, z-index, font-size;
@@ -144,4 +144,79 @@ body {
 }
 .letter-content * > {
   width: 100%;
+}
+.button-container {
+  display: flex;
+}
+
+.carousel-container {
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  right: 0;
+  left: 0;
+  /* cursor: grab;
+  touch-action: none; */
+  overflow: hidden;
+}
+.carousel {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  height: 100%;
+  transition: 700ms ease-in-out;
+}
+.carousel-container li {
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  top: -2rem;
+  bottom: 0;
+  width: 100%;
+}
+
+.carousel-container li img {
+  object-fit: contain;
+  height: 100%;
+  width: 100%;
+
+  /* user-select: none;
+  -webkit-user-select: none;
+  -webkit-user-drag: none; */
+}
+
+.carousel-button {
+  cursor: pointer;
+  position: fixed;
+  top: 50%;
+  transform: translate(0, -50%);
+  width: 3em;
+  height: 3em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#left {
+  left: 3vw;
+}
+#right {
+  right: 3vw;
+}
+.arrow {
+  border: solid black;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 10px;
+}
+.right {
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+}
+
+.left {
+  transform: rotate(135deg);
+  -webkit-transform: rotate(135deg);
 }
