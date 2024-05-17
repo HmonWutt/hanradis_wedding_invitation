@@ -63,7 +63,7 @@ body {
   z-index: 7;
   font-size: 2em;
   transition-property: transform, width, height, z-index, font-size;
-  transition-delay: 1s, 2s, 2s, 2s, 2s;
+  transition-delay: 1s, 2s, 2s, 1.8s, 2s;
 }
 
 .envelope-top,
