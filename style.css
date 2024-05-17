@@ -57,7 +57,7 @@ body {
 }
 
 .envelope:hover .letter {
-  transform: translate(-50%, -35vh);
+  transform: translate(-50%, -30vh);
   width: 90vw;
   height: 90vh;
   z-index: 7;
@@ -160,6 +160,7 @@ body {
   /* cursor: grab;
   touch-action: none; */
   overflow: hidden;
+  z-index: 9;
 }
 .carousel {
   list-style: none;
@@ -176,6 +177,7 @@ body {
   top: -2rem;
   bottom: 0;
   width: 100%;
+  background: white;
 }
 
 .carousel-container li img {
@@ -205,6 +207,13 @@ body {
 #right {
   right: 3vw;
 }
+#close {
+  width: 2em;
+  font-size: 2em;
+  position: fixed;
+  top: 2%;
+  background: white;
+}
 .arrow {
   border: solid black;
   border-width: 0 3px 3px 0;
@@ -219,4 +228,7 @@ body {
 .left {
   transform: rotate(135deg);
   -webkit-transform: rotate(135deg);
+}
+.hidden {
+  display: none;
 }

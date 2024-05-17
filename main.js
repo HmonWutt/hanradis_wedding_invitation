@@ -1,6 +1,15 @@
 window.onload = function () {
-  const carousel = document.querySelector(".carousel");
+  const photoButton = document.querySelector(".photo");
+  const carouselContainer = document.querySelector(".carousel-container");
+  const hideCaourselButton = document.querySelector("#close");
+  photoButton.addEventListener("click", () =>
+    carouselContainer.classList.remove("hidden")
+  );
+  hideCaourselButton.addEventListener("click", () =>
+    carouselContainer.classList.add("hidden")
+  );
 
+  const carousel = document.querySelector(".carousel");
   for (let i = 0; i < 8; i++) {
     const img_li = document.createElement("li");
     const img = document.createElement("img");
