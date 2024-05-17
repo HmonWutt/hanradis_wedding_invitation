@@ -10,7 +10,7 @@
 
 <body>
     <div class="envelope">
-        <img src="heart.png" alt="picture of a heart">
+        <img class="heart" src="heart.png" alt="picture of a heart">
         <div class="envelope-left"></div>
         <div class="envelope-right"></div>
         <div class="letter">
@@ -33,7 +33,13 @@
         <div class="envelope-bottom"></div>
 
     </div>
+
+    <div class="slide l"><img src="/assets/images/guy.png"></img></div>
+    <div class="slide r"><img src="/assets/images/girl.png"></div>
+
+
     <div class="carousel-container hidden">
+
         <ul class="carousel">
         </ul>
         <p class="carousel-button" id="left"><i class="arrow left"></i></p>
@@ -43,8 +49,12 @@
     </div>
 
     </div>
+    <span class="t"></span>
+    <span class="r"></span>
 
-    <script src="main.js"></script>
+
+    <script src="main.js" type="module"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12/dist/gsap.min.js"></script>
 </body>
 
 </html>

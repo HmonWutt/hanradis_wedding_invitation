@@ -1,4 +1,17 @@
 window.onload = function () {
+  function flyIn() {
+    gsap.fromTo(
+      ".l",
+      { x: -1000, scale: 0, y: -1200, rotation: 180 },
+      { x: 0, scale: 1, y: 0, duration: 3, rotation: 0 }
+    );
+    gsap.fromTo(
+      ".r",
+      { x: 1000, scale: 0.5, y: 1200, rotation: 100 },
+      { x: 0, scale: 1, duration: 3, y: 0, rotation: 0 }
+    );
+  }
+  flyIn();
   const photoButton = document.querySelector(".photo");
   const carouselContainer = document.querySelector(".carousel-container");
   const hideCaourselButton = document.querySelector("#close");
@@ -14,7 +27,7 @@ window.onload = function () {
     const img_li = document.createElement("li");
     const img = document.createElement("img");
 
-    img.src = `./assets/images/${i + 1}.jpeg`;
+    img.src = `./assets/images/${i}.jpeg`;
     img_li.appendChild(img);
     carousel.appendChild(img_li);
   }
