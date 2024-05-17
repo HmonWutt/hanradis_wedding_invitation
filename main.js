@@ -1,5 +1,9 @@
 window.onload = function () {
   function flyIn() {
+    const leftSide = document.querySelector(".l");
+    const rightSide = document.querySelector(".r");
+    leftSide.classList.remove("hidden");
+    rightSide.classList.remove("hidden");
     gsap.fromTo(
       ".l",
       { x: -1000, scale: 0, y: -1200, rotation: 180 },
@@ -11,16 +15,37 @@ window.onload = function () {
       { x: 0, scale: 1, duration: 3, y: 0, rotation: 0 }
     );
   }
-  flyIn();
-  const photoButton = document.querySelector(".photo");
+
+  const photoButton = document.querySelector("#photo");
   const carouselContainer = document.querySelector(".carousel-container");
   const hideCaourselButton = document.querySelector("#close");
-  photoButton.addEventListener("click", () =>
-    carouselContainer.classList.remove("hidden")
-  );
+  photoButton.addEventListener("click", () => {
+    flyIn();
+    setTimeout(() => {
+      setTimeout(() => {
+        const leftSide = document.querySelector(".l");
+        const rightSide = document.querySelector(".r");
+        leftSide.classList.add("hidden");
+        rightSide.classList.add("hidden");
+      }, 2000);
+
+      carouselContainer.classList.remove("hidden");
+    }, 3000);
+  });
   hideCaourselButton.addEventListener("click", () =>
     carouselContainer.classList.add("hidden")
   );
+  const dialog = document.querySelector("#rsvp-form");
+  const rsvpButton = document.querySelector("#rsvp-button");
+  const submitButton = document.querySelector("#submit");
+  // rsvpButton.addEventListener("click", () => {
+  //   dialog.show();
+  // });
+
+  // "Close" button closes the dialog
+  submitButton.addEventListener("click", () => {
+    dialog.hide();
+  });
 
   const carousel = document.querySelector(".carousel");
   for (let i = 0; i < 8; i++) {
