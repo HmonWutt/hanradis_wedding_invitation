@@ -34,12 +34,21 @@ window.onload = function () {
       { opacity: 1, scale: 1, duration: 1.5 }
     );
   }
+  function hideEnvelope() {
+    const envelope = document.querySelector(".envelope");
+    envelope.style.opacity = 0;
+  }
+  function showEnvelope() {
+    const envelope = document.querySelector(".envelope");
+    envelope.style.opacity = 1;
+  }
 
   const photoButton = document.querySelector("#photo");
   const carouselContainer = document.querySelector(".carousel-container");
   const hideCaourselButton = document.querySelector("#close");
   photoButton.addEventListener("click", () => {
     flyIn();
+    hideEnvelope();
     setTimeout(() => {
       //fadeOut();
 
@@ -59,6 +68,7 @@ window.onload = function () {
   });
   hideCaourselButton.addEventListener("click", () => {
     carouselContainer.classList.add("hidden");
+    showEnvelope();
   });
   const dialog = document.querySelector("#rsvp-form");
   const rsvpButton = document.querySelector("#rsvp-button");
