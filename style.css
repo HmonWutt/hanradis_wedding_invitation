@@ -6,11 +6,15 @@
 
 :root {
   --envelope-width: 300px;
+  --envelope-height: 200px;
   --envelope-color-top: #c3b1e1;
   --envelope-color-bottom: #aa90d5;
   --envelope-color-back: #977cc3;
   --envelope-color-side: #a088c7;
-  --letter-color: #f3f0f8;
+  --letter-color: #fdfdfe;
+  --letter-border-radius: 20px;
+  /* --letter-color: #f3f0f8; */
+
   /* --letter-color: #b4d3b2; */
 }
 @font-face {
@@ -28,10 +32,12 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  background-image: url("/assets/images/pexels-pixabay-414660.jpg");
+  background-size: cover;
 }
 .envelope {
   width: var(--envelope-width);
-  height: 200px;
+  height: var(--envelope-height);
   position: relative;
   background: var(--envelope-color);
   cursor: pointer;
@@ -48,9 +54,11 @@ body {
   transition-delay: 2.5s;
 }
 .letter {
-  width: 90%;
+  width: 92%;
   background: var(--letter-color);
-  height: 200px;
+  border-radius: var(--letter-border-radius);
+  box-shadow: 0 0 var(--letter-border-radius) rgba(0, 0, 0, 0.5);
+  height: var(--envelope-height);
   z-index: 3;
   position: absolute;
   left: 50%;
@@ -67,39 +75,43 @@ body {
 
 .envelope:hover .letter {
   transform: translate(-50%, -30vh);
-  width: 90vw;
-  height: 90vh;
+  width: 95vw;
+  height: 70vh;
   z-index: 7;
   font-size: 2em;
   transition-property: transform, width, height, z-index, font-size;
   transition-delay: 1s, 2s, 2s, 1.8s, 2s;
 }
-
+.envelope:hover .bride-and-groom {
+  transform: scale(1);
+}
 .envelope-top,
 .envelope-bottom {
   width: var(--envelope-width);
   position: absolute;
-  border-left: 150px solid transparent;
-  border-right: 150px solid transparent;
+  border-left: calc(var(--envelope-width) * 0.5) solid transparent;
+  border-right: calc(var(--envelope-width) * 0.5) solid transparent;
 }
 .envelope-top {
-  top: -150px;
+  top: calc(var(--envelope-width) * -0.5);
   transform: rotateX(180deg);
   transform-origin: bottom;
-  border-bottom: 150px solid var(--envelope-color-top);
+  border-bottom: calc(var(--envelope-width) * 0.5) solid
+    var(--envelope-color-top);
   z-index: 6;
   transition: all 1s ease-out 3s;
 }
 
 .envelope-bottom {
   transform-origin: top;
-  border-bottom: 150px solid var(--envelope-color-bottom);
+  border-bottom: calc(var(--envelope-width) * 0.5) solid
+    var(--envelope-color-bottom);
   z-index: 4;
-  top: 50px;
+  top: calc(var(--envelope-height) * 0.25);
 }
 .envelope-back {
   background: var(--envelope-color-back);
-  height: 200px;
+  height: var(--envelope-height);
   z-index: 1;
   position: absolute;
   top: -0.1px;
@@ -109,17 +121,26 @@ body {
 .envelope-right {
   width: var(--envelope-width);
   position: absolute;
-  border-top: 200px solid transparent;
+  border-top: var(--envelope-height) solid transparent;
   z-index: 4;
 }
 .envelope-left {
   left: 0;
-  border-left: 200px solid var(--envelope-color-side);
+  border-left: var(--envelope-height) solid var(--envelope-color-side);
 }
 .envelope-right {
   right: 0;
-  border-right: 200px solid var(--envelope-color-side);
+  border-right: var(--envelope-height) solid var(--envelope-color-side);
 }
+.envelope,
+.envelope-top,
+.envelope-bottom,
+.envelope-left,
+.envelope-right,
+.envelope-back {
+  border-radius: 3px;
+}
+
 .envelope img {
   position: absolute;
   z-index: 7;
@@ -143,17 +164,20 @@ body {
   flex: 0 0 auto;
   justify-content: center;
   align-items: center;
-  width: 80%;
+  width: 100%;
   gap: 0.5em;
-  font-size: 0.5em;
+  font-size: 0.3em;
+  padding: 1em;
   transition: opacity 1.8s ease 0.2s;
 }
 .letter-content > * {
-  text-align: start;
+  /* text-align: start; */
+  text-align: center;
 }
 .heading {
-  font-size: 0.9em;
+  font-size: 0.8em;
   font-family: "the-rephone", sans-serif;
+  text-align: center;
 }
 .bride-and-groom {
   font-size: 0.7em;
@@ -304,5 +328,37 @@ dialog {
 }
 .italic {
   font-style: italic;
-  transform: scale(0.8);
+  transform: scale(1);
+}
+@media (orientation: landscape) {
+  .letter-content {
+    gap: 0;
+  }
+  .envelope:hover .letter {
+    width: 70vw;
+    height: 80vh;
+  }
+}
+@media (orientation: landscape) and (min-width: 1000px) {
+  .letter-content {
+    gap: 1em;
+  }
+}
+@media (orientation: landscape) and (max-width: 1000px) {
+  :root {
+    --envelope-width: 180px;
+    --envelope-height: 120px;
+    --letter-border-radius: 5px;
+  }
+  .letter-content {
+    gap: 0em;
+    padding: 0 0.5em;
+  }
+  .bride-and-groom {
+    padding-top: 0em;
+    padding-bottom: 0em;
+  }
+}
+
+@media (orientation: portrait) {
 }

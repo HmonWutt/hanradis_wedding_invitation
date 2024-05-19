@@ -6,13 +6,32 @@ window.onload = function () {
     rightSide.classList.remove("hidden");
     gsap.fromTo(
       ".l",
-      { x: -1000, scale: 0, y: -1200, rotation: 180 },
-      { x: 0, scale: 1, y: 0, duration: 3, rotation: 0 }
+      { x: -100, scale: 0, y: -120, rotation: 180 },
+      { x: 0, scale: 1, y: 0, duration: 2, rotation: 0 }
     );
     gsap.fromTo(
       ".r",
       { x: 1000, scale: 0.5, y: 1200, rotation: 100 },
-      { x: 0, scale: 1, duration: 3, y: 0, rotation: 0 }
+      { x: 0, scale: 1, duration: 2, y: 0, rotation: 0 }
+    );
+  }
+  function fadeOut() {
+    gsap.fromTo(
+      ".l",
+      { opacity: 1, scale: 1 },
+      { opacity: 0, scale: 0, duration: 1.5 }
+    );
+    gsap.fromTo(
+      ".r",
+      { opacity: 1, scale: 1 },
+      { opacity: 0, scale: 0, duration: 1.5 }
+    );
+  }
+  function fadeIn() {
+    gsap.fromTo(
+      ".carousel-container",
+      { opacity: 0, scale: 0 },
+      { opacity: 1, scale: 1, duration: 1.5 }
     );
   }
 
@@ -22,19 +41,25 @@ window.onload = function () {
   photoButton.addEventListener("click", () => {
     flyIn();
     setTimeout(() => {
-      setTimeout(() => {
-        const leftSide = document.querySelector(".l");
-        const rightSide = document.querySelector(".r");
-        leftSide.classList.add("hidden");
-        rightSide.classList.add("hidden");
-      }, 2000);
+      //fadeOut();
 
-      carouselContainer.classList.remove("hidden");
+      fadeIn();
     }, 3000);
+    setTimeout(() => {
+      const leftSide = document.querySelector(".l");
+      const rightSide = document.querySelector(".r");
+      leftSide.setAttribute("style", "");
+      rightSide.setAttribute("style", "");
+      leftSide.classList.add("hidden");
+      rightSide.classList.add("hidden");
+    }, 3500);
+    setTimeout(() => {
+      carouselContainer.classList.remove("hidden");
+    }, 3500);
   });
-  hideCaourselButton.addEventListener("click", () =>
-    carouselContainer.classList.add("hidden")
-  );
+  hideCaourselButton.addEventListener("click", () => {
+    carouselContainer.classList.add("hidden");
+  });
   const dialog = document.querySelector("#rsvp-form");
   const rsvpButton = document.querySelector("#rsvp-button");
   const submitButton = document.querySelector("#submit");
@@ -48,7 +73,7 @@ window.onload = function () {
   });
 
   const carousel = document.querySelector(".carousel");
-  for (let i = 0; i < 8; i++) {
+  for (let i = 0; i < 9; i++) {
     const img_li = document.createElement("li");
     const img = document.createElement("img");
 
@@ -100,5 +125,23 @@ window.onload = function () {
       targetSlide = slides[slides.length - 1];
     }
     moveSlide(carousel, currentSlide, targetSlide);
+  });
+
+  //////////////////////////////////////////////
+  const firstName = document.querySelector("#firstname");
+  const lastName = document.querySelector("#lastname");
+  const email = document.querySelector("#email");
+  const yesNo = document.querySelector(
+    'input[name="attandance"]:checked'
+  ).value;
+  const submitFormButton = document.querySelector("#submit");
+  submitFormButton.addEventListener("click", () => {
+    console.log("summitted");
+    console.log(firstName.value, lastName.value, email.value, yesNo.value);
+    if (!firstName.value || !lastName.value || !email.value || !yesNo.value) {
+      console.log("please complete the form");
+      return;
+    }
+    console.log(firstName.value, lastName.value);
   });
 };
