@@ -1,127 +1,138 @@
-const envelope = document.querySelector(".envelope");
-let count = 0;
-function mouseEnterCount(count) {
-  return (count += 1);
-}
-function envelopeOpen() {
-  count = mouseEnterCount(count);
-
-  if (count < 2) {
-    gsap.fromTo(
-      ".heart",
-      { rotationX: 180, y: 0, opacity: 1 },
-      { duration: 1, y: 100, opacity: 0, rotationX: 0 }
-    );
-    gsap.fromTo(
-      ".envelope-top",
-      { rotationX: 180 },
-      { duration: 1, rotationX: 0 }
-    );
-    gsap.fromTo(
-      ".envelope-top",
-      { zIndex: 3 },
-      { zIndex: 1, duration: 1, delay: 0.5 }
-    );
-    gsap.fromTo(".letter", { y: 0 }, { y: " -30vh", duration: 1, delay: 1 });
-    gsap.fromTo(".letter", { zIndex: 2 }, { zIndex: 4, duration: 1, delay: 2 });
-    gsap.to(".envelope-top", {
-      opacity: 0,
-      delay: 2.5,
-    });
-    gsap.to(".letter", {
-      y: "-15vh",
-      width: "70vw",
-      height: "60vh",
-      duration: 1,
-      delay: 2.5,
-    });
-    gsap.to(".letter-content", {
-      opacity: 1,
-      delay: 2.8,
-    });
-
-    const width = window.innerWidth;
-    const height = window.innerHeight;
-    if (width < 350 || height < 350) {
-      gsap.fromTo(
-        ".heading",
-        { fontSize: "0.8em" },
-        {
-          fontSize: "1em",
-          ease: Sine.easeOut,
-          autoRound: false,
-          duration: 1,
-          delay: 2.5,
-        }
-      );
-      gsap.fromTo(
-        ".bride-and-groom",
-        { fontSize: "0.7em" },
-        {
-          fontSize: "1em",
-          ease: Sine.easeOut,
-          autoRound: false,
-          duration: 1,
-          delay: 2.5,
-        }
-      );
-    }
-    gsap.fromTo(
-      ".letter-content",
-      { fontSize: "0.3em" },
-      {
-        fontSize: "0.6em",
-        ease: Sine.easeOut,
-        autoRound: false,
-        duration: 1,
-        delay: 2.5,
-      }
-    );
-  } else {
-    gsap.fromTo(
-      ".heading",
-      { fontSize: "0.8em" },
-      {
-        fontSize: "1.5em",
-        ease: Sine.easeOut,
-        autoRound: false,
-        duration: 1,
-        delay: 2.5,
-      }
-    );
-    gsap.fromTo(
-      ".bride-and-groom",
-      { fontSize: "0.7em" },
-      {
-        fontSize: "1.5em",
-        ease: Sine.easeOut,
-        autoRound: false,
-        duration: 1,
-        delay: 2.5,
-      }
-    );
-
-    gsap.fromTo(
-      ".letter-content",
-      { fontSize: "0.3em" },
-      {
-        fontSize: "1em",
-        ease: Sine.easeOut,
-        autoRound: false,
-        duration: 1,
-        delay: 2.5,
-      }
-    );
-  }
-}
-gsap.to(".mask", {
-  opacity: 1,
-  delay: 2.2,
-});
-gsap.to(".mask", { y: "150%", duration: 1.5, delay: 3.5 });
-
-envelope.addEventListener("mouseenter", envelopeOpen);
 window.onload = function () {
+  const envelope = document.querySelector(".envelope");
+  let count = 0;
+  // function mouseEnterCount(count) {
+  //   return (count += 1);
+  // }
+  console.log("count", count);
+  function envelopeOpen() {
+    console.log(count);
+
+    if (count < 1) {
+      gsap.fromTo(
+        ".heart",
+        { rotationX: 180, y: 0, opacity: 1 },
+        { duration: 1, y: 100, opacity: 0, rotationX: 0 }
+      );
+      gsap.fromTo(
+        ".envelope-top",
+        { rotationX: 180 },
+        { duration: 1, rotationX: 0 }
+      );
+      gsap.fromTo(
+        ".envelope-top",
+        { zIndex: 3 },
+        { zIndex: 1, duration: 1, delay: 0.5 }
+      );
+      gsap.fromTo(".letter", { y: 0 }, { y: " -30vh", duration: 1, delay: 1 });
+      gsap.fromTo(
+        ".letter",
+        { zIndex: 2 },
+        { zIndex: 4, duration: 1, delay: 2 }
+      );
+      gsap.to(".envelope-top", {
+        opacity: 0,
+        delay: 2.5,
+      });
+      gsap.to(".letter", {
+        y: "-15vh",
+        width: "70vw",
+        height: "60vh",
+        duration: 1,
+        delay: 2.5,
+      });
+      gsap.to(".letter-content", {
+        opacity: 1,
+        delay: 2.8,
+      });
+
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      if (width < 350 || height < 350) {
+        gsap.fromTo(
+          ".heading",
+          { fontSize: "0.8em" },
+          {
+            fontSize: "1em",
+            ease: Sine.easeOut,
+            autoRound: false,
+            duration: 1,
+            delay: 2.5,
+          }
+        );
+        gsap.fromTo(
+          ".bride-and-groom",
+          { fontSize: "0.7em" },
+          {
+            fontSize: "1em",
+            ease: Sine.easeOut,
+            autoRound: false,
+            duration: 1,
+            delay: 2.5,
+          }
+        );
+
+        gsap.fromTo(
+          ".letter-content",
+          { fontSize: "0.3em" },
+          {
+            fontSize: "0.6em",
+            ease: Sine.easeOut,
+            autoRound: false,
+            duration: 1,
+            delay: 2.5,
+          }
+        );
+      } else {
+        gsap.fromTo(
+          ".heading",
+          { fontSize: "0.8em" },
+          {
+            fontSize: "1.5em",
+            ease: Sine.easeOut,
+            autoRound: false,
+            duration: 1,
+            delay: 2.5,
+          }
+        );
+        gsap.fromTo(
+          ".bride-and-groom",
+          { fontSize: "0.7em" },
+          {
+            fontSize: "1.5em",
+            ease: Sine.easeOut,
+            autoRound: false,
+            duration: 1,
+            delay: 2.5,
+          }
+        );
+
+        gsap.fromTo(
+          ".letter-content",
+          { fontSize: "0.3em" },
+          {
+            fontSize: "1em",
+            ease: Sine.easeOut,
+            autoRound: false,
+            duration: 1,
+            delay: 2.5,
+          }
+        );
+      }
+
+      gsap.to(".mask", {
+        opacity: 1,
+        delay: 2.2,
+      });
+      gsap.to(".mask", { y: "150%", duration: 1.5, delay: 3.5 });
+    }
+  }
+
+  envelope.addEventListener("mouseenter", () => {
+    envelopeOpen();
+    count += 1;
+  });
+
   function flyIn() {
     const leftSide = document.querySelector(".l");
     const rightSide = document.querySelector(".r");
@@ -204,10 +215,10 @@ window.onload = function () {
   // "Close" button closes the dialog
   const closeModalButton = document.querySelector(".btn-close");
   closeModalButton.addEventListener("click", () => (letter.style.opacity = 1));
-  submitButton.addEventListener("click", () => {
-    dialog.hide();
-    // letter.style.opacity = 1;
-  });
+  // submitButton.addEventListener("click", () => {
+  //   dialog.hide();
+  //   // letter.style.opacity = 1;
+  // });
 
   const carousel = document.querySelector(".carousel");
   for (let i = 0; i < 31; i++) {
@@ -268,21 +279,36 @@ window.onload = function () {
   const firstName = document.querySelector("#firstname");
   const lastName = document.querySelector("#lastname");
   const email = document.querySelector("#email");
+  const modal = document.querySelector(".modal");
 
   const submitFormButton = document.querySelector("#submit");
-  submitFormButton.addEventListener("click", () => {
-    console.log("summitted");
-    const yesNo = document
-      .querySelector('input[name="attandance"]:checked')
-      .value();
-    console.log("yesno", yesNo);
-    console.log(firstName.value, lastName.value, email.value, yesNo.value);
+  submitFormButton.addEventListener("click", (e) => {
+    e.preventDefault();
 
-    if (!firstName.value || !lastName.value || !email.value || !yesNo.value) {
+    const plusOne = document.querySelector("#plus-one");
+
+    if (
+      !document.querySelector("#firstname").value ||
+      !document.querySelector("#lastname").value ||
+      !email.value ||
+      !document.querySelector('input[name="attendance"]:checked').value ||
+      plusOne.value.length > 1
+    ) {
       console.log("please complete the form");
-      return;
+      console.log(firstName.value, lastName.value, email.value, plusOne);
+
+      // return;
+    } else {
+      /*   console.log(firstName.value, lastName.value); */
+      count += 1;
+      const yesNo = document.querySelector(
+        'input[name="attendance"]:checked'
+      ).value;
+      console.log(firstName.value, lastName.value, email.value, yesNo, plusOne);
+      submitFormButton.setAttribute("data-bs-dismiss", "modal");
+
+      submitButton.click(e.preventDefault());
     }
-    /*   console.log(firstName.value, lastName.value); */
   });
 };
 
