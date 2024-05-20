@@ -1,3 +1,47 @@
+const envelope = document.querySelector(".envelope");
+let count = 0;
+function mouseEnterCount(count) {
+  return (count += 1);
+}
+function envelopeOpen() {
+  count = mouseEnterCount(count);
+  console.log(count);
+  if (count < 2) {
+    gsap.fromTo(
+      ".envelope-top",
+      { rotationX: 180 },
+      { duration: 1, rotationX: 0 }
+    );
+    gsap.fromTo(
+      ".envelope-top",
+      { zIndex: 3 },
+      { zIndex: 1, duration: 1, delay: 0.5 }
+    );
+    gsap.fromTo(".letter", { y: 0 }, { y: " -30vh", duration: 1, delay: 1 });
+    gsap.fromTo(".letter", { zIndex: 2 }, { zIndex: 4, duration: 1, delay: 2 });
+    gsap.to(".envelope-top", {
+      opacity: 0,
+      delay: 2.5,
+    });
+    gsap.to(".letter", {
+      y: "-15vh",
+      width: "70vw",
+      height: "60vh",
+      duration: 1,
+      delay: 2.5,
+    });
+    gsap.to(".letter-content", {
+      opacity: 1,
+      delay: 2.8,
+    });
+    gsap.to(".mask", {
+      opacity: 1,
+      delay: 2.2,
+    });
+    gsap.to(".mask", { y: "150%", duration: 1.5, delay: 3.5 });
+  }
+}
+envelope.addEventListener("mouseenter", envelopeOpen);
 window.onload = function () {
   function flyIn() {
     const leftSide = document.querySelector(".l");
@@ -73,13 +117,17 @@ window.onload = function () {
   const dialog = document.querySelector("#rsvp-form");
   const rsvpButton = document.querySelector("#rsvp-button");
   const submitButton = document.querySelector("#submit");
+  const letter = document.querySelector(".letter");
   // rsvpButton.addEventListener("click", () => {
-  //   dialog.show();
+  //   letter.style.opacity = 0;
   // });
 
   // "Close" button closes the dialog
+  const closeModalButton = document.querySelector(".btn-close");
+  closeModalButton.addEventListener("click", () => (letter.style.opacity = 1));
   submitButton.addEventListener("click", () => {
     dialog.hide();
+    // letter.style.opacity = 1;
   });
 
   const carousel = document.querySelector(".carousel");
@@ -141,9 +189,9 @@ window.onload = function () {
   const firstName = document.querySelector("#firstname");
   const lastName = document.querySelector("#lastname");
   const email = document.querySelector("#email");
-  const yesNo = document.querySelector(
-    'input[name="attandance"]:checked'
-  ).value;
+  // const yesNo = document.querySelector(
+  //   'input[name="attandance"]:checked'
+  // ).value;
   const submitFormButton = document.querySelector("#submit");
   submitFormButton.addEventListener("click", () => {
     console.log("summitted");
@@ -152,6 +200,25 @@ window.onload = function () {
       console.log("please complete the form");
       return;
     }
-    console.log(firstName.value, lastName.value);
+    /*   console.log(firstName.value, lastName.value); */
   });
 };
+
+fetch("http://127.0.0.1:5000/getall", { method: "GET" })
+  .then(function (response) {
+    return response.json();
+  })
+  .then(function (data) {
+    console.log(data);
+  })
+  .catch(function (err) {
+    console.log("Fetch Error :-S", err);
+  });
+let data = { firstname: "hello", lastame: "world" };
+fetch("http://127.0.0.1:5000/post", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify(data),
+}).then((res) => {
+  console.log("Request complete! response:", res);
+});
