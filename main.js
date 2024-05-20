@@ -179,7 +179,7 @@ window.onload = function () {
 
   const photoButton = document.querySelector("#photo");
   const carouselContainer = document.querySelector(".carousel-container");
-  const hideCaourselButton = document.querySelector("#close");
+  const hideCaourselButton = document.querySelector(".close-icon");
   photoButton.addEventListener("click", () => {
     flyIn();
     hideEnvelope();
