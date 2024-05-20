@@ -39,6 +39,39 @@ function envelopeOpen() {
       opacity: 1,
       delay: 2.8,
     });
+    gsap.fromTo(
+      ".heading",
+      { fontSize: "0.8em" },
+      {
+        fontSize: "1.6em",
+        ease: Sine.easeOut,
+        autoRound: false,
+        duration: 1,
+        delay: 2.5,
+      }
+    );
+    gsap.fromTo(
+      ".bride-and-groom",
+      { fontSize: "0.7em" },
+      {
+        fontSize: "1.8em",
+        ease: Sine.easeOut,
+        autoRound: false,
+        duration: 1,
+        delay: 2.5,
+      }
+    );
+    gsap.fromTo(
+      ".letter-content",
+      { fontSize: "0.3em" },
+      {
+        fontSize: "1em",
+        ease: Sine.easeOut,
+        autoRound: false,
+        duration: 1,
+        delay: 2.5,
+      }
+    );
     gsap.to(".mask", {
       opacity: 1,
       delay: 2.2,
