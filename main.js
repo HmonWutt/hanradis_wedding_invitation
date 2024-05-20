@@ -8,6 +8,11 @@ function envelopeOpen() {
   console.log(count);
   if (count < 2) {
     gsap.fromTo(
+      ".heart",
+      { rotationX: 180, y: 0, opacity: 1 },
+      { duration: 1, y: 100, opacity: 0, rotationX: 0 }
+    );
+    gsap.fromTo(
       ".envelope-top",
       { rotationX: 180 },
       { duration: 1, rotationX: 0 }
