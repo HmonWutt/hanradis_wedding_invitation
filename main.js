@@ -5,7 +5,7 @@ function mouseEnterCount(count) {
 }
 function envelopeOpen() {
   count = mouseEnterCount(count);
-  console.log(count);
+
   if (count < 2) {
     gsap.fromTo(
       ".heart",
@@ -39,11 +39,50 @@ function envelopeOpen() {
       opacity: 1,
       delay: 2.8,
     });
+
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+    if (width < 350 || height < 350) {
+      gsap.fromTo(
+        ".heading",
+        { fontSize: "0.8em" },
+        {
+          fontSize: "1em",
+          ease: Sine.easeOut,
+          autoRound: false,
+          duration: 1,
+          delay: 2.5,
+        }
+      );
+      gsap.fromTo(
+        ".bride-and-groom",
+        { fontSize: "0.7em" },
+        {
+          fontSize: "1em",
+          ease: Sine.easeOut,
+          autoRound: false,
+          duration: 1,
+          delay: 2.5,
+        }
+      );
+    }
+    gsap.fromTo(
+      ".letter-content",
+      { fontSize: "0.3em" },
+      {
+        fontSize: "0.6em",
+        ease: Sine.easeOut,
+        autoRound: false,
+        duration: 1,
+        delay: 2.5,
+      }
+    );
+  } else {
     gsap.fromTo(
       ".heading",
       { fontSize: "0.8em" },
       {
-        fontSize: "1.6em",
+        fontSize: "1.5em",
         ease: Sine.easeOut,
         autoRound: false,
         duration: 1,
@@ -54,13 +93,14 @@ function envelopeOpen() {
       ".bride-and-groom",
       { fontSize: "0.7em" },
       {
-        fontSize: "1.8em",
+        fontSize: "1.5em",
         ease: Sine.easeOut,
         autoRound: false,
         duration: 1,
         delay: 2.5,
       }
     );
+
     gsap.fromTo(
       ".letter-content",
       { fontSize: "0.3em" },
@@ -72,13 +112,14 @@ function envelopeOpen() {
         delay: 2.5,
       }
     );
-    gsap.to(".mask", {
-      opacity: 1,
-      delay: 2.2,
-    });
-    gsap.to(".mask", { y: "150%", duration: 1.5, delay: 3.5 });
   }
 }
+gsap.to(".mask", {
+  opacity: 1,
+  delay: 2.2,
+});
+gsap.to(".mask", { y: "150%", duration: 1.5, delay: 3.5 });
+
 envelope.addEventListener("mouseenter", envelopeOpen);
 window.onload = function () {
   function flyIn() {
@@ -169,7 +210,7 @@ window.onload = function () {
   });
 
   const carousel = document.querySelector(".carousel");
-  for (let i = 0; i < 9; i++) {
+  for (let i = 0; i < 31; i++) {
     const img_li = document.createElement("li");
     const img = document.createElement("img");
 
@@ -227,13 +268,16 @@ window.onload = function () {
   const firstName = document.querySelector("#firstname");
   const lastName = document.querySelector("#lastname");
   const email = document.querySelector("#email");
-  // const yesNo = document.querySelector(
-  //   'input[name="attandance"]:checked'
-  // ).value;
+
   const submitFormButton = document.querySelector("#submit");
   submitFormButton.addEventListener("click", () => {
     console.log("summitted");
+    const yesNo = document
+      .querySelector('input[name="attandance"]:checked')
+      .value();
+    console.log("yesno", yesNo);
     console.log(firstName.value, lastName.value, email.value, yesNo.value);
+
     if (!firstName.value || !lastName.value || !email.value || !yesNo.value) {
       console.log("please complete the form");
       return;
@@ -253,10 +297,12 @@ fetch("http://127.0.0.1:5000/getall", { method: "GET" })
     console.log("Fetch Error :-S", err);
   });
 let data = { firstname: "hello", lastame: "world" };
-fetch("http://127.0.0.1:5000/post", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify(data),
-}).then((res) => {
-  console.log("Request complete! response:", res);
-});
+function post(data) {
+  fetch("http://127.0.0.1:5000/post", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  }).then((res) => {
+    console.log("Request complete! response:", res);
+  });
+}
