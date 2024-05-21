@@ -1,13 +1,8 @@
 window.onload = function () {
   const envelope = document.querySelector(".envelope");
   let count = 0;
-  // function mouseEnterCount(count) {
-  //   return (count += 1);
-  // }
-  console.log("count", count);
-  function envelopeOpen() {
-    console.log(count);
 
+  function envelopeOpen() {
     if (count < 1) {
       gsap.fromTo(
         ".heart",
@@ -36,7 +31,7 @@ window.onload = function () {
       });
       gsap.to(".letter", {
         y: "-15vh",
-        width: "70vw",
+        width: "90vw",
         height: "60vh",
         duration: 1,
         delay: 2.5,
@@ -276,27 +271,21 @@ window.onload = function () {
   });
 
   //////////////////////////////////////////////
-  const firstName = document.querySelector("#firstname");
-  const lastName = document.querySelector("#lastname");
-  const email = document.querySelector("#email");
+
   const modal = document.querySelector(".modal");
 
   const submitFormButton = document.querySelector("#submit");
   submitFormButton.addEventListener("click", (e) => {
     e.preventDefault();
 
-    const plusOne = document.querySelector("#plus-one");
-
     if (
       !document.querySelector("#firstname").value ||
       !document.querySelector("#lastname").value ||
-      !email.value ||
+      !document.querySelector("#email").value ||
       !document.querySelector('input[name="attendance"]:checked').value ||
-      plusOne.value.length > 1
+      document.querySelector("#plus-one").value.length > 1
     ) {
-      console.log("please complete the form");
-      console.log(firstName.value, lastName.value, email.value, plusOne);
-
+      alert("Please complete the form!");
       // return;
     } else {
       /*   console.log(firstName.value, lastName.value); */
@@ -304,31 +293,34 @@ window.onload = function () {
       const yesNo = document.querySelector(
         'input[name="attendance"]:checked'
       ).value;
-      console.log(firstName.value, lastName.value, email.value, yesNo, plusOne);
+
       submitFormButton.setAttribute("data-bs-dismiss", "modal");
 
-      submitButton.click(e.preventDefault());
+      const guest = {
+        firstname: document.querySelector("#firstname").value,
+        lastname: document.querySelector("#lastname").value,
+        email: document.querySelector("#email").value,
+        attendance: document.querySelector('input[name="attendance"]:checked')
+          .value,
+        plusone: document.querySelector("#plus-one").value,
+      };
+      post(guest);
     }
   });
 };
 
-fetch("http://127.0.0.1:5000/getall", { method: "GET" })
-  .then(function (response) {
-    return response.json();
-  })
-  .then(function (data) {
-    console.log(data);
-  })
-  .catch(function (err) {
-    console.log("Fetch Error :-S", err);
-  });
-let data = { firstname: "hello", lastame: "world" };
-function post(data) {
+async function post(data) {
   fetch("http://127.0.0.1:5000/post", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
-  }).then((res) => {
-    console.log("Request complete! response:", res);
-  });
+  })
+    .then((res) => {
+      console.log("Request complete! response:", res);
+      alert("Form submitted successfully. Thank you.");
+      submitButton.click((e) => e.preventDefault());
+    })
+    .catch(function (err) {
+      console.log("Post error", err);
+    });
 }
