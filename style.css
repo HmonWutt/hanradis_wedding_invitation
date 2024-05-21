@@ -364,6 +364,11 @@ dialog {
   top: 95vh;
   font-size: 0.5em;
 }
+.attribution-1 {
+  position: fixed;
+  top: 92vh;
+  font-size: 0.5em;
+}
 .italic {
   font-style: italic;
   transform: scale(1);
