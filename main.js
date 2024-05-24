@@ -1,7 +1,8 @@
 function getRangeBetweenMinaAndMax(min, max) {
   return min + Math.random() * (max - min);
 }
-const motionPath = [
+
+const path = [
   { x: 70, y: "-45vh" },
   { x: 30, y: "-40vh" },
   { x: 0, y: "-30vh" },
@@ -21,11 +22,13 @@ function twirl(element, motionPath) {
       rotationY: getRangeBetweenMinaAndMax(0, 360),
     },
     {
-      motionPath: motionPath,
       ease: "ease.in",
-      align: motionPath,
-      autoRotate: true,
-      alignOrigin: [0.5, 0.5],
+      motionPath: {
+        path: motionPath,
+
+        //autoRotate: true,
+        //alignOrigin: [0.5, 0.5],
+      },
       rotationZ: 0,
       rotationX: 0,
       rotationY: 0,
@@ -44,13 +47,16 @@ function bounce(element) {
 //bounce(envelope);
 
 window.onload = function () {
+  //document.addEventListener("DOMContentLoaded", (event) => {
+  gsap.registerPlugin(MotionPathPlugin);
+  //});
   const body = document.querySelector("body");
   const width = window.innerWidth;
   const height = window.innerHeight;
   body.style.backgroundImage = `url("/assets/images/background.jpg")`;
   body.style.backgroundSize = "cover";
   const envelope = document.querySelector(".envelope");
-  twirl(envelope, motionPath);
+  twirl(envelope, path);
 
   let count = 0;
 
@@ -68,7 +74,7 @@ window.onload = function () {
         duration: 0.5,
         rotationX: 0,
       });
-      envelopeOpenTimeLine.to(".envelope-top", { zIndex: 1, duration: 0.5 });
+      envelopeOpenTimeLine.to(".envelope-top", { zIndex: 1 });
       let parameters;
       if (window.innerHeight < window.innerWidth) {
         parameters = { y: "-30vh", width: "60vw", height: "80vh" };
@@ -77,14 +83,14 @@ window.onload = function () {
       } else {
         parameters = { y: "-20vh", width: "90vw", height: "55vh" };
       }
-      envelopeOpenTimeLine.to(".letter", { y: parameters.y, duration: 0.5 });
-      envelopeOpenTimeLine.to(".letter", { zIndex: 4, duration: 0.5 });
-      envelopeOpenTimeLine.to(".envelope-top", {
-        opacity: 0,
-        delay: 0.5,
+      envelopeOpenTimeLine.to(".letter-wrapper", {
+        y: parameters.y,
+        duration: 0.5,
       });
 
-      envelopeOpenTimeLine.to(".letter", {
+      envelopeOpenTimeLine.to(".letter-wrapper", { zIndex: 4, duration: 0.5 });
+
+      envelopeOpenTimeLine.to(".letter-wrapper", {
         width: parameters.width,
         height: parameters.height,
         duration: 0.5,
@@ -92,6 +98,21 @@ window.onload = function () {
       envelopeOpenTimeLine.to(".letter-content", {
         opacity: 1,
       });
+      envelopeOpenTimeLine.to(".envelope-top", {
+        opacity: 0,
+      });
+
+      envelopeOpenTimeLine.fromTo(
+        ".rotate",
+        { scale: 0.5 },
+        {
+          scale: 1,
+          opacity: 1,
+          duration: 1,
+          yoyo: true,
+          repeat: 10,
+        }
+      );
     }
   }
 
@@ -99,6 +120,31 @@ window.onload = function () {
     envelopeOpen();
     count += 1;
   });
+  const rotateButton = document.querySelector(".rotate");
+  gsap.set(".letter-wrapper", { perspective: 800 });
+  gsap.set(".letter", { transformStyle: "preserve-3d" });
+  gsap.set("#letter-front", {
+    backfaceVisibility: "hidden",
+  });
+  gsap.set("#letter-back", {
+    backfaceVisibility: "hidden",
+  });
+  gsap.set("#letter-back", { rotationY: -180 });
+  let angle = 0;
+  rotateButton.addEventListener("click", showBack);
+
+  function showBack() {
+    gsap.fromTo(
+      ".letter",
+      {
+        rotationY: angle,
+        duration: 1,
+        ease: "Back.ease",
+      },
+      { rotationY: angle + 180, duration: 1, ease: "Back.ease" }
+    );
+    angle -= 180;
+  }
 
   function flyIn() {
     const leftSide = document.querySelector(".l");
@@ -174,7 +220,7 @@ window.onload = function () {
   const dialog = document.querySelector("#rsvp-form");
   const rsvpButton = document.querySelector("#rsvp-button");
   const submitButton = document.querySelector("#submit");
-  const letter = document.querySelector(".letter");
+  const letter = document.querySelector(".letter-wrapper");
   // rsvpButton.addEventListener("click", () => {
   //   letter.style.opacity = 0;
   // });
