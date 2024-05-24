@@ -284,6 +284,7 @@ body {
   padding: 0;
   position: relative;
   height: 100%;
+  width: 100%;
   transition: 700ms ease-in-out;
 }
 .carousel-container li {
@@ -292,7 +293,7 @@ body {
   position: absolute;
   top: -2rem;
   bottom: 0;
-  width: 100vw;
+  width: 100%;
   background: transparent;
 }
 
@@ -326,10 +327,10 @@ body {
 
 .close-icon {
   position: absolute;
-  left: 3vw;
-  top: 2vw;
-  width: 32px;
-  height: 32px;
+  left: 0;
+  top: 0;
+  width: 3em;
+  height: 3em;
   opacity: 1;
 }
 .close-icon:hover {
@@ -339,11 +340,12 @@ body {
 .close-icon:after {
   position: absolute;
   left: 0;
+  top: -2em;
   content: " ";
   height: 33px;
   width: 4px;
-  background-color: black;
-  box-shadow: rgba(254, 252, 252, 0.946) 0px 5px 15px;
+  background-color: rgb(252, 251, 251);
+  /* box-shadow: rgba(254, 252, 252, 0.946) 0px 5px 15px; */
 }
 .close-icon:before {
   transform: rotate(45deg);
@@ -482,5 +484,5 @@ dialog {
 }
 .rotate img {
   z-index: 12;
-  width: 5em;
+  width: 3em;
 }
