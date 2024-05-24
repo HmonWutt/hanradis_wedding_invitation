@@ -40,13 +40,7 @@ body {
   height: 100vh;
   margin: 0;
   padding: 0;
-  /* display: flex;
-  align-items: center;
-  justify-content: center; */
   position: relative;
-  /* background-image: url("/assets/images/pexels-pixabay-414660.jpg"); */
-  background-image: url("/assets/images/background.jpg");
-  background-size: cover;
 }
 .envelope {
   width: var(--envelope-width);
@@ -71,7 +65,6 @@ body {
 } */
 .letter {
   width: 92%;
-  /* background: var(--letter-color); */
   height: var(--envelope-height);
   position: absolute;
   left: 50%;
@@ -91,8 +84,6 @@ body {
   box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 1px, rgba(0, 0, 0, 0.07) 0px 2px 2px,
     rgba(0, 0, 0, 0.07) 0px 4px 4px, rgba(0, 0, 0, 0.07) 0px 8px 8px,
     rgba(0, 0, 0, 0.07) 0px 16px 16px;
-  /* background-image: url(./assets/images/front.png);
-  background-size: cover; */
 }
 #letter-front {
   width: 100%;
@@ -135,6 +126,7 @@ body {
   border-bottom: calc(var(--envelope-width) * 0.5) solid
     var(--envelope-color-top);
   z-index: 4;
+
   /* transition: all 1s ease-out 3s; */
 }
 

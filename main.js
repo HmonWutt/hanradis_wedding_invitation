@@ -1,152 +1,97 @@
-const envelope = document.querySelector(".envelope");
-const tl = gsap.timeline();
-
-tl.from(".envelope", {
-  y: "-100vh",
-  //ease: "power1.in",
-  duration: 3,
-  ease: "elastic.out",
-});
+function getRangeBetweenMinaAndMax(min, max) {
+  return min + Math.random() * (max - min);
+}
+const motionPath = [
+  { x: 70, y: "-45vh" },
+  { x: 30, y: "-40vh" },
+  { x: 0, y: "-30vh" },
+  { x: -70, y: "-20vh" },
+  { x: -30, y: "-10vh" },
+  { x: -10, y: "-5vh" },
+  { x: 0, y: 0 },
+];
+function twirl(element, motionPath) {
+  gsap.fromTo(
+    element,
+    {
+      y: "-60vh",
+      x: 0,
+      rotationZ: getRangeBetweenMinaAndMax(0, 360),
+      rotationX: getRangeBetweenMinaAndMax(0, 360),
+      rotationY: getRangeBetweenMinaAndMax(0, 360),
+    },
+    {
+      motionPath: motionPath,
+      ease: "ease.in",
+      align: motionPath,
+      autoRotate: true,
+      alignOrigin: [0.5, 0.5],
+      rotationZ: 0,
+      rotationX: 0,
+      rotationY: 0,
+      duration: 2,
+    }
+  );
+}
+function bounce(element) {
+  gsap.from(element, {
+    y: "-60vh",
+    x: 100,
+    ease: "elastic",
+    duration: 2,
+  });
+}
+//bounce(envelope);
 
 window.onload = function () {
+  const body = document.querySelector("body");
+  const width = window.innerWidth;
+  const height = window.innerHeight;
+  body.style.backgroundImage = `url("/assets/images/background.jpg")`;
+  body.style.backgroundSize = "cover";
+  const envelope = document.querySelector(".envelope");
+  twirl(envelope, motionPath);
+
   let count = 0;
 
   function envelopeOpen() {
-    const width = window.innerWidth;
-    const height = window.innerHeight;
+    const envelopeOpenTimeLine = gsap.timeline();
+
     if (count < 1) {
-      gsap.fromTo(
-        ".heart",
-        { rotationX: 180, y: 0, opacity: 1 },
-        { duration: 1, y: 100, opacity: 0, rotationX: 0 }
-      );
-      gsap.fromTo(
-        ".envelope-top",
-        { rotationX: 180 },
-        { duration: 1, rotationX: 0 }
-      );
-      gsap.fromTo(
-        ".envelope-top",
-        { zIndex: 3 },
-        { zIndex: 1, duration: 1, delay: 0.5 }
-      );
-      gsap.fromTo(".letter", { y: 0 }, { y: " -30vh", duration: 1, delay: 1 });
-      gsap.fromTo(
-        ".letter",
-        { zIndex: 2 },
-        { zIndex: 4, duration: 1, delay: 2 }
-      );
-      gsap.to(".envelope-top", {
+      envelopeOpenTimeLine.to(".heart", {
+        duration: 0.5,
+        y: 100,
         opacity: 0,
-        delay: 2.5,
+        rotationX: 180,
       });
+      envelopeOpenTimeLine.to(".envelope-top", {
+        duration: 0.5,
+        rotationX: 0,
+      });
+      envelopeOpenTimeLine.to(".envelope-top", { zIndex: 1, duration: 0.5 });
+      let parameters;
       if (window.innerHeight < window.innerWidth) {
-        gsap.to(".letter", {
-          y: "-30vh",
-          width: "60vw",
-          height: "80vh",
-          duration: 1,
-          delay: 2.5,
-        });
+        parameters = { y: "-30vh", width: "60vw", height: "80vh" };
       } else if (width < 350 || height < 350) {
-        gsap.to(".letter", {
-          y: "-25vh",
-          width: "90vw",
-          height: "55vh",
-          duration: 1,
-          delay: 2.5,
-        });
+        parameters = { y: "-25vh", width: "90vw", height: "55vh" };
       } else {
-        gsap.to(".letter", {
-          y: "-20vh",
-          width: "90vw",
-          height: "55vh",
-          duration: 1,
-          delay: 2.5,
-        });
+        parameters = { y: "-20vh", width: "90vw", height: "550vh" };
       }
-      gsap.to(".letter-content", {
-        opacity: 1,
-        delay: 3,
+      envelopeOpenTimeLine.to(".letter", { y: parameters.y, duration: 0.5 });
+      envelopeOpenTimeLine.to(".letter", { zIndex: 4, duration: 0.5 });
+      envelopeOpenTimeLine.to(".envelope-top", {
+        opacity: 0,
+        delay: 0.5,
       });
 
-      if (width < 350 || height < 350) {
-        gsap.fromTo(
-          ".heading",
-          { fontSize: "0.8em" },
-          {
-            fontSize: "1em",
-            ease: Sine.easeOut,
-            autoRound: false,
-            duration: 1,
-            delay: 2.5,
-          }
-        );
-        gsap.fromTo(
-          ".bride-and-groom",
-          { fontSize: "0.7em" },
-          {
-            fontSize: "1em",
-            ease: Sine.easeOut,
-            autoRound: false,
-            duration: 1,
-            delay: 2.5,
-          }
-        );
-
-        // gsap.fromTo(
-        //   ".letter-content",
-        //   { fontSize: "0.3em" },
-        //   {
-        //     fontSize: "0.6em",
-        //     ease: Sine.easeOut,
-        //     autoRound: false,
-        //     duration: 1,
-        //     delay: 2.5,
-        //   }
-        // );
-      } else {
-        gsap.fromTo(
-          ".heading",
-          { fontSize: "0.8em" },
-          {
-            fontSize: "1.5em",
-            ease: Sine.easeOut,
-            autoRound: false,
-            duration: 1,
-            delay: 2.5,
-          }
-        );
-        gsap.fromTo(
-          ".bride-and-groom",
-          { fontSize: "0.7em" },
-          {
-            fontSize: "1.5em",
-            ease: Sine.easeOut,
-            autoRound: false,
-            duration: 1,
-            delay: 2.5,
-          }
-        );
-
-        // gsap.fromTo(
-        //   ".letter-content",
-        //   { fontSize: "0.3em" },
-        //   {
-        //     fontSize: "1em",
-        //     ease: Sine.easeOut,
-        //     autoRound: false,
-        //     duration: 1,
-        //     delay: 2.5,
-        //   }
-        // );
-      }
-
-      gsap.to(".mask", {
-        opacity: 1,
-        delay: 2.2,
+      envelopeOpenTimeLine.to(".letter", {
+        width: parameters.width,
+        height: parameters.height,
+        duration: 0.5,
       });
-      gsap.to(".mask", { y: "150%", duration: 1.5, delay: 3.5 });
+      envelopeOpenTimeLine.to(".letter-content", {
+        opacity: 1,
+      });
     }
   }
 
