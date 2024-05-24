@@ -36,12 +36,6 @@
   font-weight: normal;
   font-style: normal;
 }
-@font-face {
-  font-family: "font-awsome";
-  src: url(./font/font-awesome-4.7.0/css/font-awesome.css);
-  font-weight: normal;
-  font-style: normal;
-}
 
 body {
   height: 100vh;
