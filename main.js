@@ -333,7 +333,7 @@ window.onload = function () {
 };
 
 async function post(data) {
-  fetch("http://127.0.0.1:5000/post", {
+  fetch("http://horaceandradi.choretracker.se/:5000/post", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
