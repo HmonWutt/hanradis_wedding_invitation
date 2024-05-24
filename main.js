@@ -75,7 +75,7 @@ window.onload = function () {
       } else if (width < 350 || height < 350) {
         parameters = { y: "-25vh", width: "90vw", height: "55vh" };
       } else {
-        parameters = { y: "-20vh", width: "90vw", height: "550vh" };
+        parameters = { y: "-20vh", width: "90vw", height: "55vh" };
       }
       envelopeOpenTimeLine.to(".letter", { y: parameters.y, duration: 0.5 });
       envelopeOpenTimeLine.to(".letter", { zIndex: 4, duration: 0.5 });
