@@ -89,28 +89,26 @@ window.onload = function () {
       });
 
       envelopeOpenTimeLine.to(".letter-wrapper", { zIndex: 4, duration: 0.5 });
-
-      envelopeOpenTimeLine.to(".letter-wrapper", {
-        width: parameters.width,
-        height: parameters.height,
-        duration: 0.5,
-      });
       envelopeOpenTimeLine.to(".letter-content", {
         opacity: 1,
       });
       envelopeOpenTimeLine.to(".envelope-top", {
         opacity: 0,
       });
-
+      envelopeOpenTimeLine.to(".letter-wrapper", {
+        width: parameters.width,
+        height: parameters.height,
+        duration: 0.5,
+      });
       envelopeOpenTimeLine.fromTo(
         ".rotate",
-        { scale: 0.5 },
+        { scale: 0.8 },
         {
           scale: 1,
           opacity: 1,
-          duration: 1,
+          duration: 1.5,
           yoyo: true,
-          repeat: 10,
+          repeat: 6,
         }
       );
     }
@@ -147,6 +145,8 @@ window.onload = function () {
   }
 
   function flyIn() {
+    const rotateButton = document.querySelector(".rotate");
+    rotateButton.style.display = "none";
     const leftSide = document.querySelector(".l");
     const rightSide = document.querySelector(".r");
     leftSide.classList.remove("hidden");
@@ -192,7 +192,7 @@ window.onload = function () {
 
   const photoButton = document.querySelector("#photo");
   const carouselContainer = document.querySelector(".carousel-container");
-  const hideCaourselButton = document.querySelector(".close-icon");
+  const hideCarouselButton = document.querySelector(".close-icon");
   photoButton.addEventListener("click", () => {
     flyIn();
     hideEnvelope();
@@ -213,8 +213,10 @@ window.onload = function () {
       carouselContainer.classList.remove("hidden");
     }, 3500);
   });
-  hideCaourselButton.addEventListener("click", () => {
+  hideCarouselButton.addEventListener("click", () => {
     carouselContainer.classList.add("hidden");
+    const rotateButton = document.querySelector(".rotate");
+    rotateButton.style.display = "block";
     showEnvelope();
   });
   const dialog = document.querySelector("#rsvp-form");
@@ -227,14 +229,16 @@ window.onload = function () {
 
   // "Close" button closes the dialog
   const closeModalButton = document.querySelector(".btn-close");
-  closeModalButton.addEventListener("click", () => (letter.style.opacity = 1));
+  closeModalButton.addEventListener("click", () => {
+    letter.style.opacity = 1;
+  });
   // submitButton.addEventListener("click", () => {
   //   dialog.hide();
   //   // letter.style.opacity = 1;
   // });
 
   const carousel = document.querySelector(".carousel");
-  for (let i = 0; i < 31; i++) {
+  for (let i = 0; i < 8; i++) {
     const img_li = document.createElement("li");
     const img = document.createElement("img");
 
