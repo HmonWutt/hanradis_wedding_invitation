@@ -7,12 +7,17 @@
 :root {
   --envelope-width: 300px;
   --envelope-height: 200px;
-  --envelope-color-top: #c3b1e1;
+  /* --envelope-color-top: #c3b1e1;
   --envelope-color-bottom: #aa90d5;
   --envelope-color-back: #977cc3;
-  --envelope-color-side: #a088c7;
+  --envelope-color-side: #a088c7; */
   --letter-color: #fdfdfe;
-  --letter-border-radius: 20px;
+  --letter-border-radius: 5px;
+  --envelope-color-top: #a3c5d6;
+  --envelope-color-bottom: #9ebfcf;
+  --envelope-color-back: #97b7c9;
+  --envelope-color-side: #9abacd;
+
   /* --letter-color: #f3f0f8; */
 
   /* --letter-color: #b4d3b2; */
@@ -25,20 +30,31 @@
   font-weight: normal;
   font-style: normal;
 }
+@font-face {
+  font-family: "GNUTypewriter";
+  src: url("./font/GNUTypewriter/gtw.otf"), url("./font/GNUTypewriter/gtw.ttf");
+  font-weight: normal;
+  font-style: normal;
+}
 body {
   height: 100vh;
   margin: 0;
   padding: 0;
-  display: flex;
+  /* display: flex;
   align-items: center;
-  justify-content: center;
-  background-image: url("/assets/images/pexels-pixabay-414660.jpg");
+  justify-content: center; */
+  position: relative;
+  /* background-image: url("/assets/images/pexels-pixabay-414660.jpg"); */
+  background-image: url("/assets/images/background.jpg");
   background-size: cover;
 }
 .envelope {
   width: var(--envelope-width);
   height: var(--envelope-height);
   position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   background: var(--envelope-color);
   cursor: pointer;
   box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
@@ -55,9 +71,7 @@ body {
 } */
 .letter {
   width: 92%;
-  background: var(--letter-color);
-  border-radius: var(--letter-border-radius);
-  box-shadow: 0 0 var(--letter-border-radius) rgba(0, 0, 0, 0.5);
+  /* background: var(--letter-color); */
   height: var(--envelope-height);
   position: absolute;
   left: 50%;
@@ -72,6 +86,27 @@ body {
   justify-content: center;
   align-items: center;
   overflow-y: hidden;
+  border-radius: var(--letter-border-radius);
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
+  box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 1px, rgba(0, 0, 0, 0.07) 0px 2px 2px,
+    rgba(0, 0, 0, 0.07) 0px 4px 4px, rgba(0, 0, 0, 0.07) 0px 8px 8px,
+    rgba(0, 0, 0, 0.07) 0px 16px 16px;
+  /* background-image: url(./assets/images/front.png);
+  background-size: cover; */
+}
+#letter-front {
+  width: 100%;
+  height: 100%;
+  flex-shrink: 1;
+  border-radius: var(--letter-border-radius);
+  box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 1px, rgba(0, 0, 0, 0.07) 0px 2px 2px,
+    rgba(0, 0, 0, 0.07) 0px 4px 4px, rgba(0, 0, 0, 0.07) 0px 8px 8px,
+    rgba(0, 0, 0, 0.07) 0px 16px 16px;
+}
+#letter-front img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
 }
 /* 
 .envelope:hover .letter {
@@ -146,7 +181,7 @@ body {
   z-index: 3;
 }
 
-.envelope img {
+.heart {
   position: absolute;
   z-index: 7;
   height: 30px;
@@ -165,16 +200,18 @@ body {
 } */
 .letter-content {
   display: flex;
-  flex-direction: column;
-  flex: 0 0 auto;
   justify-content: center;
   align-items: center;
   width: 100%;
   gap: 0.5em;
   font-size: 0.3em;
   padding: 1em;
-  position: relative;
-  overflow-y: hidden;
+  position: absolute;
+  top: 80vh;
+  left: 0;
+  text-align: center;
+  opacity: 0;
+
   /* transition: opacity 1.8s ease 0.2s; */
 }
 .mask {
@@ -183,10 +220,7 @@ body {
   height: 110%;
   background: var(--letter-color);
 }
-.letter-content > * {
-  /* text-align: start; */
-  text-align: center;
-}
+
 .heading {
   font-size: 0.8em;
   padding-top: 0.5em;
@@ -200,12 +234,13 @@ body {
   padding-bottom: 1em;
   text-align: center;
 }
-.letter-content:not(.heading) {
+/* .letter-content:not(.heading) {
   opacity: 0;
-}
+} */
 .letter-content * > {
   width: 100%;
 }
+
 .button-container {
   display: flex;
 }
@@ -214,14 +249,15 @@ body {
   margin: 0;
   padding: 0;
   position: absolute;
-  width: 100vw;
-  height: 100vh;
-  right: 0;
+  width: 100%;
+  height: 100%;
   left: 0;
+  top: 0;
   /* cursor: grab;
   touch-action: none; */
   overflow: hidden;
   z-index: 9;
+  background: black;
 }
 .carousel {
   list-style: none;
@@ -369,6 +405,12 @@ dialog {
   top: 92vh;
   font-size: 0.5em;
 }
+.attribution,
+.attribution-1 {
+  left: 50%;
+  transform: translate(-50%, 0%);
+  font-family: "GNUTypewriter", sans-serif;
+}
 .italic {
   font-style: italic;
   transform: scale(1);
@@ -401,7 +443,15 @@ dialog {
     padding-top: 0em;
     padding-bottom: 0em;
   }
+  .close-icon {
+    left: 5vw;
+    top: 8vw;
+  }
 }
 
-@media (orientation: portrait) {
+@media (orientation: portrait) and (max-width: 1000px) {
+  .close-icon {
+    left: 10vw;
+    top: 10vh;
+  }
 }

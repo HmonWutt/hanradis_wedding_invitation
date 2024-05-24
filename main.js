@@ -1,8 +1,19 @@
+const envelope = document.querySelector(".envelope");
+const tl = gsap.timeline();
+
+tl.from(".envelope", {
+  y: "-100vh",
+  //ease: "power1.in",
+  duration: 3,
+  ease: "elastic.out",
+});
+
 window.onload = function () {
-  const envelope = document.querySelector(".envelope");
   let count = 0;
 
   function envelopeOpen() {
+    const width = window.innerWidth;
+    const height = window.innerHeight;
     if (count < 1) {
       gsap.fromTo(
         ".heart",
@@ -29,20 +40,36 @@ window.onload = function () {
         opacity: 0,
         delay: 2.5,
       });
-      gsap.to(".letter", {
-        y: "-15vh",
-        width: "90vw",
-        height: "60vh",
-        duration: 1,
-        delay: 2.5,
-      });
+      if (window.innerHeight < window.innerWidth) {
+        gsap.to(".letter", {
+          y: "-30vh",
+          width: "60vw",
+          height: "80vh",
+          duration: 1,
+          delay: 2.5,
+        });
+      } else if (width < 350 || height < 350) {
+        gsap.to(".letter", {
+          y: "-25vh",
+          width: "90vw",
+          height: "55vh",
+          duration: 1,
+          delay: 2.5,
+        });
+      } else {
+        gsap.to(".letter", {
+          y: "-20vh",
+          width: "90vw",
+          height: "55vh",
+          duration: 1,
+          delay: 2.5,
+        });
+      }
       gsap.to(".letter-content", {
         opacity: 1,
-        delay: 2.8,
+        delay: 3,
       });
 
-      const width = window.innerWidth;
-      const height = window.innerHeight;
       if (width < 350 || height < 350) {
         gsap.fromTo(
           ".heading",
@@ -67,17 +94,17 @@ window.onload = function () {
           }
         );
 
-        gsap.fromTo(
-          ".letter-content",
-          { fontSize: "0.3em" },
-          {
-            fontSize: "0.6em",
-            ease: Sine.easeOut,
-            autoRound: false,
-            duration: 1,
-            delay: 2.5,
-          }
-        );
+        // gsap.fromTo(
+        //   ".letter-content",
+        //   { fontSize: "0.3em" },
+        //   {
+        //     fontSize: "0.6em",
+        //     ease: Sine.easeOut,
+        //     autoRound: false,
+        //     duration: 1,
+        //     delay: 2.5,
+        //   }
+        // );
       } else {
         gsap.fromTo(
           ".heading",
@@ -102,17 +129,17 @@ window.onload = function () {
           }
         );
 
-        gsap.fromTo(
-          ".letter-content",
-          { fontSize: "0.3em" },
-          {
-            fontSize: "1em",
-            ease: Sine.easeOut,
-            autoRound: false,
-            duration: 1,
-            delay: 2.5,
-          }
-        );
+        // gsap.fromTo(
+        //   ".letter-content",
+        //   { fontSize: "0.3em" },
+        //   {
+        //     fontSize: "1em",
+        //     ease: Sine.easeOut,
+        //     autoRound: false,
+        //     duration: 1,
+        //     delay: 2.5,
+        //   }
+        // );
       }
 
       gsap.to(".mask", {
@@ -324,3 +351,11 @@ async function post(data) {
       console.log("Post error", err);
     });
 }
+
+var resizeTimeout;
+window.addEventListener("resize", function (event) {
+  clearTimeout(resizeTimeout);
+  resizeTimeout = setTimeout(function () {
+    window.location.reload();
+  }, 500);
+});
