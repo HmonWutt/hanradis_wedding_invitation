@@ -53,6 +53,14 @@ window.onload = function () {
   const body = document.querySelector("body");
   const width = window.innerWidth;
   const height = window.innerHeight;
+  let parameters;
+  if (window.innerHeight < window.innerWidth) {
+    parameters = { y: "-30vh", width: "60vw", height: "80vh" };
+  } else if (width < 350 || height < 350) {
+    parameters = { y: "-25vh", width: "90vw", height: "55vh" };
+  } else {
+    parameters = { y: "-20vh", width: "90vw", height: "55vh" };
+  }
   body.style.backgroundImage = `url("/assets/images/background.jpg")`;
   body.style.backgroundSize = "cover";
   const envelope = document.querySelector(".envelope");
@@ -75,14 +83,7 @@ window.onload = function () {
         rotationX: 0,
       });
       envelopeOpenTimeLine.to(".envelope-top", { zIndex: 1 });
-      let parameters;
-      if (window.innerHeight < window.innerWidth) {
-        parameters = { y: "-30vh", width: "60vw", height: "80vh" };
-      } else if (width < 350 || height < 350) {
-        parameters = { y: "-25vh", width: "90vw", height: "55vh" };
-      } else {
-        parameters = { y: "-20vh", width: "90vw", height: "55vh" };
-      }
+
       envelopeOpenTimeLine.to(".letter-wrapper", {
         y: parameters.y,
         duration: 0.5,
