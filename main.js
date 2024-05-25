@@ -317,7 +317,7 @@ window.onload = function () {
         'input[name="attendance"]:checked'
       ).value;
 
-      submitFormButton.setAttribute("data-bs-dismiss", "modal");
+      // submitFormButton.setAttribute("data-bs-dismiss", "modal");
 
       const guest = {
         firstname: document.querySelector("#firstname").value,
@@ -333,7 +333,7 @@ window.onload = function () {
 };
 
 async function post(data) {
-  fetch("http://horaceandradi.choretracker.se/:5000/post", {
+  fetch("http://localhost:7000/post", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
@@ -341,7 +341,7 @@ async function post(data) {
     .then((res) => {
       console.log("Request complete! response:", res);
       alert("Form submitted successfully. Thank you.");
-      submitButton.click((e) => e.preventDefault());
+      //submitFormButton.click((e) => e.preventDefault());
     })
     .catch(function (err) {
       console.log("Post error", err);

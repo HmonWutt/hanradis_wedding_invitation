@@ -3,6 +3,10 @@
 *::after {
   box-sizing: border-box;
 }
+html,
+body {
+  overscroll-behavior: none;
+}
 
 :root {
   --envelope-width: 300px;
@@ -22,20 +26,14 @@
 
   /* --letter-color: #b4d3b2; */
 }
-@font-face {
-  font-family: "the-rephone";
 
-  src: url("./font/otf/the-rephone-the-rephone-regular-400.otf"),
-    url("./fonts/the-rephone-the-rephone-regular-400.ttf");
+/* @font-face {
+  font-family: "Typewriter";
+  src:  url(./font/Special_Elite/SpecialElite-Regular.ttf) format("truetype");
+
   font-weight: normal;
   font-style: normal;
-}
-@font-face {
-  font-family: "GNUTypewriter";
-  src: url("./font/GNUTypewriter/gtw.otf"), url("./font/GNUTypewriter/gtw.ttf");
-  font-weight: normal;
-  font-style: normal;
-}
+} */
 
 body {
   height: 100vh;
@@ -321,11 +319,13 @@ body {
 
 .close-icon {
   position: absolute;
-  left: 0;
-  top: 0;
+  left: 1em;
+  top: 1em;
   width: 3em;
   height: 3em;
   opacity: 1;
+  z-index: 13;
+  cursor: pointer;
 }
 .close-icon:hover {
   opacity: 1;
@@ -333,8 +333,8 @@ body {
 .close-icon:before,
 .close-icon:after {
   position: absolute;
-  left: 0;
-  top: -2em;
+  left: 1em;
+  top: 1em;
   content: " ";
   height: 33px;
   width: 4px;
@@ -414,7 +414,9 @@ dialog {
   position: fixed;
   left: 50%;
   transform: translate(-50%, 0%);
-  font-family: "GNUTypewriter", sans-serif;
+  font-family: "Special Elite", sans-serif;
+  font-weight: 400;
+  font-style: normal;
   font-size: 0.5em;
 }
 .one {
@@ -430,51 +432,34 @@ dialog {
   font-style: italic;
   transform: scale(1);
 }
-@media (orientation: landscape) {
-  .letter-content {
-    gap: 0;
+
+/* @media (orientation: landscape) and (min-width: 1000px) {
+  .close-icon {
+    position: absolute;
+    left: 2em;
+    top: 2em;
   }
-  /* .envelope:hover .letter {
-    width: 70vw;
-    height: 80vh;
-  } */
-}
-@media (orientation: landscape) and (min-width: 1000px) {
-  .letter-content {
-    gap: 1em;
+  .close-icon:before,
+  .close-icon:after {
+    position: absolute;
+    left: 2em;
+    top: 2em;
   }
-}
+} */
 @media (orientation: landscape) and (max-width: 1000px) {
   :root {
     --envelope-width: 180px;
     --envelope-height: 120px;
     --letter-border-radius: 5px;
   }
-  .letter-content {
-    gap: 0em;
-    padding: 0 0.5em;
-  }
-  .bride-and-groom {
-    padding-top: 0em;
-    padding-bottom: 0em;
-  }
-  .close-icon {
-    left: 5vw;
-    top: 8vw;
-  }
 }
 
-@media (orientation: portrait) and (max-width: 1000px) {
-  .close-icon {
-    left: 10vw;
-    top: 10vh;
-  }
-}
 .rotate {
   position: absolute;
   top: 1em;
   right: 1em;
   opacity: 0;
+  cursor: pointer;
 }
 .rotate img {
   z-index: 12;
