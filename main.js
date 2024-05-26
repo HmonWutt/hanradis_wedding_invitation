@@ -55,11 +55,23 @@ window.onload = function () {
   const height = window.innerHeight;
   let parameters;
   if (window.innerHeight < window.innerWidth) {
-    parameters = { y: "-30vh", width: "60vw", height: "80vh" };
+    parameters = {
+      y: "-30vh",
+      width: width * 0.6,
+      height: width * 0.6 * 1.5,
+    };
   } else if (width < 350 || height < 350) {
-    parameters = { y: "-25vh", width: "90vw", height: "55vh" };
+    parameters = {
+      y: "-25vh",
+      width: width * 0.9,
+      height: width * 0.9 * 1.5,
+    };
   } else {
-    parameters = { y: "-20vh", width: "90vw", height: "55vh" };
+    parameters = {
+      y: "-30vh",
+      width: width * 0.9,
+      height: width * 0.9 * 1.5,
+    };
   }
   body.style.backgroundImage = `url("/assets/images/background.jpg")`;
   body.style.backgroundSize = "cover";
@@ -91,7 +103,9 @@ window.onload = function () {
 
       envelopeOpenTimeLine.to(".letter-wrapper", { zIndex: 4, duration: 0.5 });
       envelopeOpenTimeLine.to(".letter-content", {
+        top: parameters.height,
         opacity: 1,
+        duration: 0.5,
       });
       envelopeOpenTimeLine.to(".envelope-top", {
         opacity: 0,
@@ -101,6 +115,12 @@ window.onload = function () {
         height: parameters.height,
         duration: 0.5,
       });
+      if (window.innerWidth > window.innerHeight) {
+        envelopeOpenTimeLine.to(".letter-wrapper", {
+          overflowY: "scroll",
+        });
+      }
+
       envelopeOpenTimeLine.fromTo(
         ".rotate",
         { scale: 0.8 },
