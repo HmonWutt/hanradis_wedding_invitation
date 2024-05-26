@@ -102,22 +102,25 @@ window.onload = function () {
       });
 
       envelopeOpenTimeLine.to(".letter-wrapper", { zIndex: 4, duration: 0.5 });
-      envelopeOpenTimeLine.to(".letter-content", {
-        top: parameters.height,
-        opacity: 1,
-        duration: 0.5,
-      });
-      envelopeOpenTimeLine.to(".envelope-top", {
-        opacity: 0,
-      });
+
       envelopeOpenTimeLine.to(".letter-wrapper", {
         width: parameters.width,
         height: parameters.height,
         duration: 0.5,
       });
+
       if (window.innerWidth > window.innerHeight) {
         envelopeOpenTimeLine.to(".letter-wrapper", {
           overflowY: "scroll",
+        });
+        envelopeOpenTimeLine.to(".letter-content", {
+          top: parameters.height,
+          display: "flex",
+        });
+      } else {
+        envelopeOpenTimeLine.to(".letter-content", {
+          top: parameters.height + 100,
+          display: "flex",
         });
       }
 
