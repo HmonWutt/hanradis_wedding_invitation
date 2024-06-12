@@ -51,31 +51,38 @@ window.onload = function () {
   gsap.registerPlugin(MotionPathPlugin);
   //});
   const body = document.querySelector("body");
+  //const background = document.querySelector(".background");
   const width = window.innerWidth;
   const height = window.innerHeight;
   let parameters;
   if (window.innerHeight < window.innerWidth) {
     parameters = {
-      y: "-30vh",
+      y: 30,
       width: width * 0.6,
       height: width * 0.6 * 1.5,
     };
   } else if (width < 350 || height < 350) {
     parameters = {
-      y: "-25vh",
+      y: 25,
+
       width: width * 0.9,
       height: width * 0.9 * 1.5,
     };
   } else {
     parameters = {
-      y: "-30vh",
+      y: 30,
+
       width: width * 0.9,
       height: width * 0.9 * 1.5,
     };
   }
   body.style.backgroundImage = `url("/assets/images/background.jpg")`;
-  body.style.backgroundSize = "cover";
+
+  body.style.backgroundSize = "350%";
+
   const envelope = document.querySelector(".envelope");
+  const envelopeWithoutLetter = document.querySelectorAll(".env");
+  console.log(envelopeWithoutLetter);
   twirl(envelope, path);
 
   let count = 0;
@@ -97,9 +104,13 @@ window.onload = function () {
       envelopeOpenTimeLine.to(".envelope-top", { zIndex: 1 });
 
       envelopeOpenTimeLine.to(".letter-wrapper", {
-        y: parameters.y,
+        y: `-${parameters.y}vh`,
         duration: 0.5,
       });
+
+      // envelopeWithoutLetter.forEach((item) => {
+      //   gsap.to(item, { y: `${parameters.y}vh`, duration: 0.5 });
+      // });
 
       envelopeOpenTimeLine.to(".letter-wrapper", { zIndex: 4, duration: 0.5 });
 
@@ -110,9 +121,9 @@ window.onload = function () {
       });
 
       if (window.innerWidth > window.innerHeight) {
-        envelopeOpenTimeLine.to(".letter-wrapper", {
-          overflowY: "scroll",
-        });
+        // envelopeOpenTimeLine.to(".letter-wrapper", {
+        //   overflowY: "scroll",
+        // });
         envelopeOpenTimeLine.to(".letter-content", {
           top: parameters.height,
           display: "flex",
@@ -123,18 +134,13 @@ window.onload = function () {
           display: "flex",
         });
       }
-
-      envelopeOpenTimeLine.fromTo(
-        ".rotate",
-        { scale: 0.8 },
-        {
-          scale: 1,
-          opacity: 1,
-          duration: 1.5,
-          yoyo: true,
-          repeat: 6,
-        }
-      );
+      envelopeOpenTimeLine.to(".rotate", { opacity: 1 });
+      envelopeOpenTimeLine.to(".rotate", {
+        rotationY: 360,
+        duration: 3,
+        yoyo: true,
+        repeat: 6,
+      });
     }
   }
 
@@ -217,7 +223,12 @@ window.onload = function () {
   const photoButton = document.querySelector("#photo");
   const carouselContainer = document.querySelector(".carousel-container");
   const hideCarouselButton = document.querySelector(".close-icon");
+  function scrollToTop() {
+    document.body.scrollTop = 0; // For Safari
+    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+  }
   photoButton.addEventListener("click", () => {
+    scrollToTop();
     flyIn();
     hideEnvelope();
     setTimeout(() => {
