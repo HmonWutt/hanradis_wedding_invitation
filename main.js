@@ -61,16 +61,16 @@ window.onload = function () {
       width: width * 0.6,
       height: width * 0.6 * 1.5,
     };
-  } else if (width < 350 || height < 350) {
-    parameters = {
-      y: 25,
+    // } else if (width < 350 || height < 350) {
+    //   parameters = {
+    //     y: 25,
 
-      width: width * 0.9,
-      height: width * 0.9 * 1.5,
-    };
+    //     width: width * 0.9,
+    //     height: width * 0.9 * 1.5,
+    //   };
   } else {
     parameters = {
-      y: 30,
+      y: 25,
 
       width: width * 0.9,
       height: width * 0.9 * 1.5,
@@ -130,7 +130,7 @@ window.onload = function () {
         });
       } else {
         envelopeOpenTimeLine.to(".letter-content", {
-          top: parameters.height + 100,
+          top: parameters.height + 50,
           display: "flex",
         });
       }
@@ -378,7 +378,7 @@ window.onload = function () {
 };
 
 async function post(data) {
-  fetch("http://localhost:7000/post", {
+  fetch("http://horaceandradi.choretracker.se/weddingbackend/post", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
@@ -393,7 +393,7 @@ async function post(data) {
     });
 }
 async function get() {
-  fetch("http://localhost:7000/sendMail", {
+  fetch("http://horaceandradi.choretracker.se/weddingbackend/sendMail", {
     method: "GET",
   })
     .then((res) => {
