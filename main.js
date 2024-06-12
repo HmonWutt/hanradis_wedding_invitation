@@ -364,6 +364,13 @@ window.onload = function () {
       post(guest);
     }
   });
+  var resizeTimeout;
+  window.addEventListener("resize", function (event) {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(function () {
+      // window.location.reload();
+    }, 500);
+  });
 };
 
 async function post(data) {
@@ -382,10 +389,8 @@ async function post(data) {
     });
 }
 
-var resizeTimeout;
-window.addEventListener("resize", function (event) {
-  clearTimeout(resizeTimeout);
-  resizeTimeout = setTimeout(function () {
-    window.location.reload();
-  }, 500);
-});
+function updateDiv() {
+  $(".envelope").load(window.location.href + " .envelope");
+  $(".letter-content").load(window.location.href + " .letter-content");
+  
+}
