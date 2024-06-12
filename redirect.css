@@ -1,0 +1,31 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+html,
+body {
+  overscroll-behavior: none;
+}
+body {
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  background-image: url("/assets/images/background.jpg");
+  background-size: cover;
+}
+div {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  text-align: center;
+}
+h1 {
+  color: #095794;
+  margin-top: 5em;
+  filter: drop-shadow(-3px 5px 10px rgb(25, 25, 24));
+  font-family: "Magra", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}

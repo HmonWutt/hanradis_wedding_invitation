@@ -255,14 +255,18 @@ window.onload = function () {
     showEnvelope();
   });
   const dialog = document.querySelector("#rsvp-form");
+
   const rsvpButton = document.querySelector("#rsvp-button");
-  const submitButton = document.querySelector("#submit");
+  const submitButton = document.querySelector("#submit-button");
   const letter = document.querySelector(".letter-wrapper");
   // rsvpButton.addEventListener("click", () => {
   //   letter.style.opacity = 0;
   // });
 
   // "Close" button closes the dialog
+  // rsvpButton.addEventListener("click", () => {
+  //   window.open("./redirect.html");
+  // });
   const closeModalButton = document.querySelector(".btn-close");
   closeModalButton.addEventListener("click", () => {
     letter.style.opacity = 1;
@@ -329,12 +333,11 @@ window.onload = function () {
 
   //////////////////////////////////////////////
 
-  const modal = document.querySelector(".modal");
+  //const modal = document.querySelector(".modal");
 
-  const submitFormButton = document.querySelector("#submit");
-  submitFormButton.addEventListener("click", (e) => {
-    e.preventDefault();
+  const submitFormButton = document.querySelector("#submit-button");
 
+  submitFormButton.addEventListener("click", () => {
     if (
       !document.querySelector("#firstname").value ||
       !document.querySelector("#lastname").value ||
@@ -361,6 +364,7 @@ window.onload = function () {
           .value,
         plusone: document.querySelector("#plus-one").value,
       };
+
       post(guest);
     }
   });
@@ -381,23 +385,35 @@ async function post(data) {
   })
     .then((res) => {
       console.log("Request complete! response:", res);
-      alert("Form submitted successfully. Thank you.");
-      //submitFormButton.click((e) => e.preventDefault());
+      get();
+    })
+    .catch((err) => {
+      console.log("Post error", err);
+      alert("Opps! Something went wrong. Apologies. Please try again later");
+    });
+}
+async function get() {
+  fetch("http://localhost:7000/sendMail", {
+    method: "GET",
+  })
+    .then((res) => {
+      console.log("Email send successfully! response:", res);
+      window.location = "/redirect.html";
     })
     .catch(function (err) {
-      console.log("Post error", err);
+      console.log("Email send failed error", err);
     });
 }
 
-function updateDiv() {
-  $(".envelope").load(window.location.href + " .envelope");
-  $(".letter-content").load(window.location.href + " .letter-content");
-  if ($(".carousel-container").length) {
-    $(".carousel-container").load(
-      window.location.href + " .carousel-container"
-    );
-  }
-  if ($(".current-slide").length) {
-    $(".current-slide").load(window.location.href + " .current-slide");
-  }
-}
+// function updateDiv() {
+//   $(".envelope").load(window.location.href + " .envelope");
+//   $(".letter-content").load(window.location.href + " .letter-content");
+//   if ($(".carousel-container").length) {
+//     $(".carousel-container").load(
+//       window.location.href + " .carousel-container"
+//     );
+//   }
+//   if ($(".current-slide").length) {
+//     $(".current-slide").load(window.location.href + " .current-slide");
+//   }
+// }
