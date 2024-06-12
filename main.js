@@ -392,5 +392,12 @@ async function post(data) {
 function updateDiv() {
   $(".envelope").load(window.location.href + " .envelope");
   $(".letter-content").load(window.location.href + " .letter-content");
-  
+  if ($(".carousel-container").length) {
+    $(".carousel-container").load(
+      window.location.href + " .carousel-container"
+    );
+  }
+  if ($(".current-slide").length) {
+    $(".current-slide").load(window.location.href + " .current-slide");
+  }
 }
