@@ -135,12 +135,16 @@ window.onload = function () {
         });
       }
       envelopeOpenTimeLine.to(".rotate", { opacity: 1 });
-      envelopeOpenTimeLine.to(".rotate", {
-        rotationY: 360,
-        duration: 3,
-        yoyo: true,
-        repeat: 6,
-      });
+      envelopeOpenTimeLine.to(
+        ".rotate",
+
+        {
+          rotationY: 180,
+          duration: 3,
+          yoyo: true,
+          repeat: 6,
+        }
+      );
     }
   }
 
@@ -149,6 +153,8 @@ window.onload = function () {
     count += 1;
   });
   const rotateButton = document.querySelector(".rotate");
+  const letter = document.querySelector(".letter");
+
   gsap.set(".letter-wrapper", { perspective: 800 });
   gsap.set(".letter", { transformStyle: "preserve-3d" });
   gsap.set("#letter-front", {
@@ -159,7 +165,9 @@ window.onload = function () {
   });
   gsap.set("#letter-back", { rotationY: -180 });
   let angle = 0;
+
   rotateButton.addEventListener("click", showBack);
+  letter.addEventListener("click", showBack);
 
   function showBack() {
     gsap.fromTo(
@@ -258,7 +266,7 @@ window.onload = function () {
 
   const rsvpButton = document.querySelector("#rsvp-button");
   const submitButton = document.querySelector("#submit-button");
-  const letter = document.querySelector(".letter-wrapper");
+  const letter_wrapper = document.querySelector(".letter-wrapper");
   // rsvpButton.addEventListener("click", () => {
   //   letter.style.opacity = 0;
   // });
@@ -269,7 +277,7 @@ window.onload = function () {
   // });
   const closeModalButton = document.querySelector(".btn-close");
   closeModalButton.addEventListener("click", () => {
-    letter.style.opacity = 1;
+    letter_wrapper.style.opacity = 1;
   });
   // submitButton.addEventListener("click", () => {
   //   dialog.hide();
@@ -277,7 +285,7 @@ window.onload = function () {
   // });
 
   const carousel = document.querySelector(".carousel");
-  for (let i = 0; i < 8; i++) {
+  for (let i = 0; i < 7; i++) {
     const img_li = document.createElement("li");
     const img = document.createElement("img");
 
