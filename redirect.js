@@ -8,20 +8,22 @@ const defaults = {
   colors: ["FFC0CB", "FF69B4", "FF1493", "C71585"],
 };
 
-confetti({
-  ...defaults,
-  particleCount: 50,
-  scalar: 2,
-});
+setTimeout(() => {
+  confetti({
+    ...defaults,
+    particleCount: 50,
+    scalar: 2,
+  });
 
-confetti({
-  ...defaults,
-  particleCount: 25,
-  scalar: 3,
-});
+  confetti({
+    ...defaults,
+    particleCount: 25,
+    scalar: 3,
+  });
 
-confetti({
-  ...defaults,
-  particleCount: 10,
-  scalar: 4,
-});
+  confetti({
+    ...defaults,
+    particleCount: 10,
+    scalar: 4,
+  });
+}, 1000);
