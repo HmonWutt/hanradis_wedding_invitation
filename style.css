@@ -239,6 +239,7 @@ body {
   width: 100%;
   gap: 0.5em;
   font-size: 0.3em;
+  margin-top: 10vh;
   padding: 1em;
   position: absolute;
   z-index: 2;
@@ -276,8 +277,8 @@ body {
   height: 100%;
   left: 0;
   top: 0;
-  /* cursor: grab;
-  touch-action: none; */
+  cursor: grab;
+  /*touch-action: none; */
   overflow: hidden;
   z-index: 9;
   background: transparent;
@@ -493,7 +494,7 @@ dialog {
   background-size: cover;
 }
 .invitation {
-  font-size: 2.5rem;
+  font-size: 2rem;
   position: absolute;
   text-align: center;
   overflow: hidden;
@@ -508,8 +509,8 @@ dialog {
   font-weight: 400;
   font-style: bold;
   letter-spacing: 0.1em; /* Adjust as needed */
-  animation: typing 4s steps(40, end), deleting 4s steps(40, end) 1s,
-    hide 0s 5s forwards;
+  animation: typing 4s steps(40, end),
+    /* , deleting 4s steps(40, end) 1s,*/ hide 1s 5s forwards;
   z-index: 3;
 }
 @keyframes typing {
