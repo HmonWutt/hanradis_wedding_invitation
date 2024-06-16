@@ -22,10 +22,11 @@ app.post("/post", (req, res) => {
   let { firstname, lastname, email, attendance, plusone, babychair } = req.body;
   const attendance_num = Number(attendance);
   const plusone_num = Number(plusone);
+  const babychair_num = Number(babychair);
 
   db.run(
     "INSERT INTO guest_list (firstname, lastname, email, coming, plusone, babychair) VALUES (?, ?, ?, ?, ?,?)",
-    [firstname, lastname, email, attendance_num, plusone_num, babychair],
+    [firstname, lastname, email, attendance_num, plusone_num, babychair_num],
     (err) => {
       if (err) {
         console.error(err.message);
@@ -93,10 +94,11 @@ function sendEmail(mailOptions) {
 
 function generateTable(data) {
   let totalAttendees = 0;
+  let totalBabychair = 0;
   let rows = data
     .map((guest) => {
       const totalOfThisGuest = guest.coming + guest.plusone;
-      const totalBabychair = 0;
+
       totalAttendees += totalOfThisGuest;
       totalBabychair += guest.babychair;
 
