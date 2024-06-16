@@ -480,3 +480,7 @@ dialog {
   z-index: 12;
   width: 2em;
 }
+.question {
+  margin-top: 1.5em;
+  font-style: italic;
+}
