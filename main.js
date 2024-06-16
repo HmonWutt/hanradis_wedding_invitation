@@ -351,7 +351,10 @@ window.onload = function () {
       !document.querySelector("#lastname").value ||
       !document.querySelector("#email").value ||
       !document.querySelector('input[name="attendance"]:checked').value ||
-      document.querySelector("#plus-one").value.length > 1
+      !document.querySelector('input[name="plusone"]:checked').value ||
+      !document.querySelector('input[name="babychair"]:checked').value
+
+      //document.querySelector("#plus-one").value.length > 1
     ) {
       alert("Please complete the form!");
       // return;
@@ -370,7 +373,10 @@ window.onload = function () {
         email: document.querySelector("#email").value,
         attendance: document.querySelector('input[name="attendance"]:checked')
           .value,
-        plusone: document.querySelector("#plus-one").value,
+        plusone: document.querySelector('input[name="plusone"]:checked').value,
+        babychair: document.querySelector('input[name="babychair"]:checked')
+          .value,
+        //plusone: document.querySelector("#plus-one").value,
       };
 
       post(guest);
@@ -387,6 +393,7 @@ window.onload = function () {
 
 async function post(data) {
   fetch("http://horaceandradi.choretracker.se/weddingbackend/post", {
+    //fetch("http://localhost:7000/post", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
@@ -402,11 +409,14 @@ async function post(data) {
 }
 async function get() {
   fetch("http://horaceandradi.choretracker.se/weddingbackend/sendMail", {
+    //fetch("http://localhost:7000/sendMail", {
     method: "GET",
   })
     .then((res) => {
       console.log("Email send successfully! response:", res);
-      window.location = "/redirect.html";
+      setTimeout(() => {
+        window.location = "/redirect.html";
+      }, 500);
     })
     .catch(function (err) {
       console.log("Email send failed error", err);
