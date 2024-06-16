@@ -280,7 +280,7 @@ body {
   touch-action: none; */
   overflow: hidden;
   z-index: 9;
-  background: black;
+  background: transparent;
 }
 .carousel {
   list-style: none;
@@ -350,7 +350,7 @@ body {
   content: " ";
   height: 33px;
   width: 4px;
-  background-color: rgb(252, 251, 251);
+  background-color: rgb(4, 4, 4);
   /* box-shadow: rgba(254, 252, 252, 0.946) 0px 5px 15px; */
 }
 .close-icon:before {
@@ -361,7 +361,7 @@ body {
 }
 
 .arrow {
-  border: solid rgb(245, 240, 240);
+  border: solid rgb(2, 2, 2);
   border-width: 0 3px 3px 0;
   display: inline-block;
   padding: 10px;
