@@ -1,13 +1,11 @@
-import { usernamePassword } from "./doNotPushToGithub";
 const express = require("express");
 const nodemailer = require("nodemailer");
-
+const { usernamePassword } = require("./doNotPushToGithub");
 const app = express();
 
 app.use(express.json());
 
 var cors = require("cors");
-const { usernamePassword } = require("./doNotPushToGithub");
 
 app.use(cors());
 const port = 7000;
@@ -21,13 +19,13 @@ app.get("/getall", (req, res) => {
 });
 
 app.post("/post", (req, res) => {
-  let { firstname, lastname, email, attendance, plusone } = req.body;
+  let { firstname, lastname, email, attendance, plusone, babychair } = req.body;
   const attendance_num = Number(attendance);
   const plusone_num = Number(plusone);
 
   db.run(
-    "INSERT INTO guest_list (firstname, lastname, email, coming, plusone) VALUES (?, ?, ?, ?, ?)",
-    [firstname, lastname, email, attendance_num, plusone_num],
+    "INSERT INTO guest_list (firstname, lastname, email, coming, plusone, babychair) VALUES (?, ?, ?, ?, ?,?)",
+    [firstname, lastname, email, attendance_num, plusone_num, babychair],
     (err) => {
       if (err) {
         console.error(err.message);
