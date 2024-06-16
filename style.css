@@ -512,6 +512,7 @@ dialog {
   animation: typing 4s steps(40, end),
     /* , deleting 4s steps(40, end) 1s,*/ hide 1s 5s forwards;
   z-index: 3;
+  filter: drop-shadow(-3px 5px 5px #0c0c0c);
 }
 @keyframes typing {
   from {
