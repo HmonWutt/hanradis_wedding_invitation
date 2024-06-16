@@ -117,7 +117,6 @@ body {
   width: 97%;
   height: auto;
   object-fit: cover;
-
   border-radius: var(--letter-border-radius);
   box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 1px, rgba(0, 0, 0, 0.07) 0px 2px 2px,
     rgba(0, 0, 0, 0.07) 0px 4px 4px, rgba(0, 0, 0, 0.07) 0px 8px 8px,
@@ -196,14 +195,19 @@ body {
   border-right: var(--envelope-height) solid var(--envelope-color-side);
 }
 .envelope,
-.envelope-top,
 .envelope-bottom,
 .envelope-left,
 .envelope-right,
 .envelope-back {
-  border-radius: 3px;
+  -moz-border-radius: 0px;
+  -webkit-border-radius: 0px 0px 3px 3px;
+  border-radius: 0px 0px 3px 3px;
 }
-
+.envelope-top {
+  -moz-border-radius: 0px;
+  -webkit-border-radius: 3px 3px 0px 0px;
+  border-radius: 3px 3px 0px 0px;
+}
 .envelope-bottom,
 .envelope-left,
 .envelope-right {
@@ -487,4 +491,46 @@ dialog {
 .modal-content {
   background-image: url("./assets/images/modal_background.png");
   background-size: cover;
+}
+.invitation {
+  font-size: 2.5rem;
+  position: absolute;
+  text-align: center;
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 0.1em transparent;
+  top: 10vh;
+  margin: 0 auto;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  font-family: "Dancing Script", cursive;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: bold;
+  letter-spacing: 0.1em; /* Adjust as needed */
+  animation: typing 4s steps(40, end), deleting 4s steps(40, end) 1s,
+    hide 0s 5s forwards;
+  z-index: 3;
+}
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes deleting {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0;
+  }
+}
+@keyframes hide {
+  to {
+    opacity: 0;
+  }
 }
