@@ -82,7 +82,6 @@ window.onload = function () {
 
   const envelope = document.querySelector(".envelope");
   const envelopeWithoutLetter = document.querySelectorAll(".env");
-  console.log(envelopeWithoutLetter);
   twirl(envelope, path);
 
   let count = 0;
@@ -172,14 +171,30 @@ window.onload = function () {
     );
     angle -= 180;
   }
+  function hide(ele) {
+    ele.classList.add("hidden");
+  }
+  function show(ele) {
+    ele.classList.remove("hidden");
+  }
+  function allDescendants(node, func) {
+    func(node);
+    for (var i = 0; i < node.children.length; i++) {
+      var child = node.children[i];
+      func(child);
+      allDescendants(child, func);
+    }
+  }
 
   function flyIn() {
     const rotateButton = document.querySelector(".rotate");
-    rotateButton.style.display = "none";
+    hide(rotateButton);
+    body.style.overflow = "hidden";
     const leftSide = document.querySelector(".l");
     const rightSide = document.querySelector(".r");
-    leftSide.classList.remove("hidden");
-    rightSide.classList.remove("hidden");
+    show(leftSide);
+    show(rightSide);
+
     gsap.fromTo(
       ".l",
       { x: -100, scale: 0, y: -120, rotation: 180 },
@@ -210,18 +225,12 @@ window.onload = function () {
       { opacity: 1, scale: 1, duration: 1.5 }
     );
   }
-  function hideEnvelope() {
-    const envelope = document.querySelector(".envelope");
-    envelope.style.opacity = 0;
-  }
-  function showEnvelope() {
-    const envelope = document.querySelector(".envelope");
-    envelope.style.opacity = 1;
-  }
 
+  const buttons = document.querySelector(".letter-content");
   const photoButton = document.querySelector("#photo");
   const carouselContainer = document.querySelector(".carousel-container");
   const hideCarouselButton = document.querySelector(".close-icon");
+  const attribution = document.querySelector(".attribution");
   function scrollToTop() {
     document.body.scrollTop = 0; // For Safari
     document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
@@ -229,7 +238,9 @@ window.onload = function () {
   photoButton.addEventListener("click", () => {
     scrollToTop();
     flyIn();
-    hideEnvelope();
+    allDescendants(envelope, hide);
+    allDescendants(buttons, hide);
+    hide(attribution);
     setTimeout(() => {
       //fadeOut();
 
@@ -251,7 +262,10 @@ window.onload = function () {
     carouselContainer.classList.add("hidden");
     const rotateButton = document.querySelector(".rotate");
     rotateButton.style.display = "block";
-    showEnvelope();
+    allDescendants(envelope, show);
+    allDescendants(buttons, show);
+    show(attribution);
+    body.style.overflow = "auto";
   });
   const dialog = document.querySelector("#rsvp-form");
 
