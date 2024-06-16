@@ -120,20 +120,11 @@ window.onload = function () {
         duration: 0.5,
       });
 
-      if (window.innerWidth > window.innerHeight) {
-        // envelopeOpenTimeLine.to(".letter-wrapper", {
-        //   overflowY: "scroll",
-        // });
-        envelopeOpenTimeLine.to(".letter-content", {
-          top: parameters.height,
-          display: "flex",
-        });
-      } else {
-        envelopeOpenTimeLine.to(".letter-content", {
-          top: parameters.height + 50,
-          display: "flex",
-        });
-      }
+      envelopeOpenTimeLine.to(".letter-content", {
+        top: parameters.height,
+        display: "flex",
+      });
+
       envelopeOpenTimeLine.to(".rotate", { opacity: 1 });
       envelopeOpenTimeLine.to(
         ".rotate",
@@ -326,7 +317,42 @@ window.onload = function () {
     }
     moveSlide(carousel, currentSlide, targetSlide);
   });
+  let touchstartX = 0;
+  let touchendX = 0;
 
+  function swipe() {
+    if (touchendX > touchstartX) {
+      const currentSlide = carousel.querySelector(".current-slide");
+      let targetSlide;
+      const id = currentSlide.getAttribute("id");
+      if (id != 0) {
+        targetSlide = currentSlide.previousElementSibling;
+      } else {
+        targetSlide = slides[slides.length - 1];
+      }
+      moveSlide(carousel, currentSlide, targetSlide);
+    }
+    if (touchendX < touchstartX) {
+      const currentSlide = carousel.querySelector(".current-slide");
+      let targetSlide;
+      const id = currentSlide.getAttribute("id");
+      if (id != slides.length - 1) {
+        targetSlide = currentSlide.nextElementSibling;
+      } else {
+        targetSlide = slides[0];
+      }
+      moveSlide(carousel, currentSlide, targetSlide);
+    }
+  }
+
+  document.addEventListener("touchstart", (e) => {
+    touchstartX = e.changedTouches[0].screenX;
+  });
+
+  document.addEventListener("touchend", (e) => {
+    touchendX = e.changedTouches[0].screenX;
+    swipe();
+  });
   previousButton.addEventListener("click", () => {
     const currentSlide = carousel.querySelector(".current-slide");
     let targetSlide;
