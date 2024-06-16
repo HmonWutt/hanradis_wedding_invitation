@@ -96,7 +96,9 @@ function generateTable(data) {
   let rows = data
     .map((guest) => {
       const totalOfThisGuest = guest.coming + guest.plusone;
+      const totalBabychair = 0;
       totalAttendees += totalOfThisGuest;
+      totalBabychair += guest.babychair;
 
       return `
       <tr>
@@ -105,6 +107,7 @@ function generateTable(data) {
         <td style="border: 1px solid black;">${guest.email}</td>
         <td style="border: 1px solid black;">${guest.coming}</td>
         <td style="border: 1px solid black;">${guest.plusone}</td>
+         <td style="border: 1px solid black;">${guest.babychair}</td>
       </tr>
     `;
     })
@@ -112,6 +115,7 @@ function generateTable(data) {
 
   return `
   <h3>Total attandees: ${totalAttendees}</h3>
+  <h3>Total babychairs: ${totalBabychair}</h3>
     <table border="1" cellpadding="8" cellspacing="0" style="border-collapse: collapse; width: 100%;">
       <thead>
         <tr style="background-color: #f2f2f2;">
@@ -120,6 +124,7 @@ function generateTable(data) {
           <th style="border: 1px solid black;">Email</th>
           <th style="border: 1px solid black;">Attendance</th>
           <th style="border: 1px solid black;">Plus One</th>
+          <th style="border: 1px solid black;">Baby chair</th>
         </tr>
       </thead>
       <tbody>
