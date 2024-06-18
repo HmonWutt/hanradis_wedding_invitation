@@ -324,21 +324,24 @@ body {
   align-items: center;
 }
 #left {
-  left: 3vw;
+  left: 0;
+  border-radius: 0 1.5em 1.5em 0;
 }
 #right {
-  right: 3vw;
+  right: 0;
+  border-radius: 1.5em 0 0 1.5em;
 }
 
 .close-icon {
-  position: absolute;
-  left: 1em;
-  top: 1em;
-  width: 3em;
-  height: 3em;
+  position: fixed;
+  left: -1em;
+  top: -1em;
+  width: 3.5em;
+  height: 3.5em;
   opacity: 1;
   z-index: 13;
   cursor: pointer;
+  border-radius: 0 0 1.5em 0;
 }
 .close-icon:hover {
   opacity: 1;
@@ -346,11 +349,12 @@ body {
 .close-icon:before,
 .close-icon:after {
   position: absolute;
-  left: 1em;
-  top: 1em;
+  top: 1.3em;
+  left: 2em;
   content: " ";
-  height: 33px;
-  width: 4px;
+  height: 1.5em;
+  padding: 0;
+  width: 1.5px;
   background-color: rgb(4, 4, 4);
   /* box-shadow: rgba(254, 252, 252, 0.946) 0px 5px 15px; */
 }
@@ -363,9 +367,9 @@ body {
 
 .arrow {
   border: solid rgb(2, 2, 2);
-  border-width: 0 3px 3px 0;
+  border-width: 0 1.5px 1.5px 0;
   display: inline-block;
-  padding: 10px;
+  padding: 7px;
 }
 .right {
   transform: rotate(-45deg);
@@ -475,15 +479,17 @@ dialog {
 }
 
 .rotate {
-  position: absolute;
+  position: fixed;
   top: 1em;
-  right: 1.5em;
+  right: 0;
   opacity: 0;
   cursor: pointer;
+  width: 3em;
+  height: 3em;
+  z-index: inherit;
 }
 .rotate img {
-  z-index: 12;
-  width: 2em;
+  width: 1.5em;
 }
 .question {
   margin-top: 1.5em;
