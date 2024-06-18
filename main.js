@@ -47,48 +47,55 @@ function bounce(element) {
 //bounce(envelope);
 
 window.onload = function () {
-  //document.addEventListener("DOMContentLoaded", (event) => {
-  gsap.registerPlugin(MotionPathPlugin);
-  //});
+  const submitFormButton = document.querySelector("#submit-button");
   const body = document.querySelector("body");
-  //const background = document.querySelector(".background");
-  const width = window.innerWidth;
-  const height = window.innerHeight;
+  const envelope = document.querySelector(".envelope");
+  const envelopeWithoutLetter = document.querySelectorAll(".env");
+  const rotateButton = document.querySelector(".rotate");
+  const letter = document.querySelector(".letter");
+  const dialog = document.querySelector("#rsvp-form");
+  const rsvpButton = document.querySelector("#rsvp-button");
+  const submitButton = document.querySelector("#submit-button");
+  const letterWrapper = document.querySelector(".letter-wrapper");
+  const buttons = document.querySelector(".letter-content");
+  const photoButton = document.querySelector("#photo");
+  const carousel = document.querySelector(".carousel");
+  const carouselContainer = document.querySelector(".carousel-container");
+  const hideCarouselButton = document.querySelector(".close-icon");
+  const attribution = document.querySelector(".attribution");
+  const leftSide = document.querySelector(".l");
+  const rightSide = document.querySelector(".r");
+  const closeModalButton = document.querySelector(".btn-close");
+  const previousButton = document.querySelector("#left");
+  const nextButton = document.querySelector("#right");
+  const windowSize = { width: window.innerWidth, height: window.innerHeight };
+
+  gsap.registerPlugin(MotionPathPlugin);
+
   let parameters;
   if (window.innerHeight < window.innerWidth) {
     parameters = {
       y: 30,
-      width: width * 0.6,
-      height: width * 0.6 * 1.5,
+      width: windowSize.width * 0.6,
+      height: windowSize.width * 0.6 * 1.5,
     };
-    // } else if (width < 350 || height < 350) {
-    //   parameters = {
-    //     y: 25,
-
-    //     width: width * 0.9,
-    //     height: width * 0.9 * 1.5,
-    //   };
   } else {
     parameters = {
       y: 25,
 
-      width: width * 0.9,
-      height: width * 0.9 * 1.5,
+      width: windowSize.width * 0.9,
+      height: windowSize.width * 0.9 * 1.5,
     };
   }
   body.style.backgroundImage = `url("/assets/images/background.jpg")`;
-
   body.style.backgroundSize = "350%";
 
-  const envelope = document.querySelector(".envelope");
-  const envelopeWithoutLetter = document.querySelectorAll(".env");
   twirl(envelope, path);
 
   let count = 0;
 
   function envelopeOpen() {
     const envelopeOpenTimeLine = gsap.timeline();
-
     if (count < 1) {
       envelopeOpenTimeLine.to(".heart", {
         duration: 0.5,
@@ -102,35 +109,30 @@ window.onload = function () {
       });
       envelopeOpenTimeLine.to(".envelope-top", { zIndex: 1 });
 
-      envelopeOpenTimeLine.to(".letter-wrapper", {
+      envelopeOpenTimeLine.to(letterWrapper, {
         y: `-${parameters.y}vh`,
         duration: 0.5,
       });
+      envelopeOpenTimeLine.to(letterWrapper, { zIndex: 4, duration: 0.5 });
 
-      // envelopeWithoutLetter.forEach((item) => {
-      //   gsap.to(item, { y: `${parameters.y}vh`, duration: 0.5 });
-      // });
-
-      envelopeOpenTimeLine.to(".letter-wrapper", { zIndex: 4, duration: 0.5 });
-
-      envelopeOpenTimeLine.to(".letter-wrapper", {
+      envelopeOpenTimeLine.to(letterWrapper, {
         width: parameters.width,
         height: parameters.height,
         duration: 0.5,
       });
 
-      envelopeOpenTimeLine.to(".letter-content", {
+      envelopeOpenTimeLine.to(buttons, {
         top: parameters.height,
         display: "flex",
       });
 
-      envelopeOpenTimeLine.to(".rotate", { opacity: 1 });
+      envelopeOpenTimeLine.to(rotateButton, { opacity: 1 });
       envelopeOpenTimeLine.to(
-        ".rotate",
+        rotateButton,
 
         {
-          rotationY: 180,
-          duration: 3,
+          scale: 1.3,
+          duration: 1,
           yoyo: true,
           repeat: 6,
         }
@@ -142,11 +144,9 @@ window.onload = function () {
     envelopeOpen();
     count += 1;
   });
-  const rotateButton = document.querySelector(".rotate");
-  const letter = document.querySelector(".letter");
 
-  gsap.set(".letter-wrapper", { perspective: 800 });
-  gsap.set(".letter", { transformStyle: "preserve-3d" });
+  gsap.set(letterWrapper, { perspective: 800 });
+  gsap.set(letter, { transformStyle: "preserve-3d" });
   gsap.set("#letter-front", {
     backfaceVisibility: "hidden",
   });
@@ -161,7 +161,7 @@ window.onload = function () {
 
   function showBack() {
     gsap.fromTo(
-      ".letter",
+      letter,
       {
         rotationY: angle,
         duration: 1,
@@ -187,53 +187,44 @@ window.onload = function () {
   }
 
   function flyIn() {
-    const rotateButton = document.querySelector(".rotate");
     hide(rotateButton);
-    body.style.overflow = "hidden";
-    const leftSide = document.querySelector(".l");
-    const rightSide = document.querySelector(".r");
     show(leftSide);
     show(rightSide);
 
     gsap.fromTo(
-      ".l",
+      leftSide,
       { x: -100, scale: 0, y: -120, rotation: 180 },
       { x: 0, scale: 1, y: 0, duration: 2, rotation: 0 }
     );
     gsap.fromTo(
-      ".r",
+      rightSide,
       { x: 1000, scale: 0.5, y: 1200, rotation: 100 },
       { x: 0, scale: 1, duration: 2, y: 0, rotation: 0 }
     );
   }
   function fadeOut() {
     gsap.fromTo(
-      ".l",
+      leftSide,
       { opacity: 1, scale: 1 },
       { opacity: 0, scale: 0, duration: 1.5 }
     );
     gsap.fromTo(
-      ".r",
+      rightSide,
       { opacity: 1, scale: 1 },
       { opacity: 0, scale: 0, duration: 1.5 }
     );
   }
   function fadeIn() {
     gsap.fromTo(
-      ".carousel-container",
-      { opacity: 0, scale: 0 },
+      carouselContainer,
+      { opacity: 0, scale: 0.5 },
       { opacity: 1, scale: 1, duration: 1.5 }
     );
   }
 
-  const buttons = document.querySelector(".letter-content");
-  const photoButton = document.querySelector("#photo");
-  const carouselContainer = document.querySelector(".carousel-container");
-  const hideCarouselButton = document.querySelector(".close-icon");
-  const attribution = document.querySelector(".attribution");
   function scrollToTop() {
-    document.body.scrollTop = 0; // For Safari
-    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+    const html = document.querySelector("html");
+    html.scrollTo({ top: 0, behavior: "smooth" });
   }
   photoButton.addEventListener("click", () => {
     scrollToTop();
@@ -243,53 +234,32 @@ window.onload = function () {
     hide(attribution);
     setTimeout(() => {
       //fadeOut();
-
       fadeIn();
+      body.style.overflow = "hidden";
     }, 3000);
     setTimeout(() => {
-      const leftSide = document.querySelector(".l");
-      const rightSide = document.querySelector(".r");
       leftSide.setAttribute("style", "");
       rightSide.setAttribute("style", "");
-      leftSide.classList.add("hidden");
-      rightSide.classList.add("hidden");
+      hide(leftSide);
+      hide(rightSide);
     }, 3500);
     setTimeout(() => {
-      carouselContainer.classList.remove("hidden");
+      show(carouselContainer);
     }, 3500);
   });
   hideCarouselButton.addEventListener("click", () => {
-    carouselContainer.classList.add("hidden");
-    const rotateButton = document.querySelector(".rotate");
-    rotateButton.style.display = "block";
+    hide(carouselContainer);
+    show(rotateButton);
     allDescendants(envelope, show);
     allDescendants(buttons, show);
     show(attribution);
     body.style.overflow = "auto";
   });
-  const dialog = document.querySelector("#rsvp-form");
 
-  const rsvpButton = document.querySelector("#rsvp-button");
-  const submitButton = document.querySelector("#submit-button");
-  const letter_wrapper = document.querySelector(".letter-wrapper");
-  // rsvpButton.addEventListener("click", () => {
-  //   letter.style.opacity = 0;
-  // });
-
-  // "Close" button closes the dialog
-  // rsvpButton.addEventListener("click", () => {
-  //   window.open("./redirect.html");
-  // });
-  const closeModalButton = document.querySelector(".btn-close");
   closeModalButton.addEventListener("click", () => {
-    letter_wrapper.style.opacity = 1;
+    letterWrapper.style.opacity = 1;
   });
-  // submitButton.addEventListener("click", () => {
-  //   dialog.hide();
-  //   // letter.style.opacity = 1;
-  // });
 
-  const carousel = document.querySelector(".carousel");
   for (let i = 0; i < 7; i++) {
     const img_li = document.createElement("li");
     const img = document.createElement("img");
@@ -298,10 +268,6 @@ window.onload = function () {
     img_li.appendChild(img);
     carousel.appendChild(img_li);
   }
-
-  const previousButton = document.querySelector("#left");
-  const nextButton = document.querySelector("#right");
-
   function setSlidePoisition(slide, index) {
     slides[index].style.left = 100 * index + "vw";
     slides[index].classList.add("slide");
@@ -331,32 +297,29 @@ window.onload = function () {
     }
     moveSlide(carousel, currentSlide, targetSlide);
   });
+
   let touchstartX = 0;
   let touchendX = 0;
 
   function swipe() {
+    const currentSlide = carousel.querySelector(".current-slide");
+    let targetSlide;
+    const id = currentSlide.getAttribute("id");
     if (touchendX > touchstartX) {
-      const currentSlide = carousel.querySelector(".current-slide");
-      let targetSlide;
-      const id = currentSlide.getAttribute("id");
       if (id != 0) {
         targetSlide = currentSlide.previousElementSibling;
       } else {
         targetSlide = slides[slides.length - 1];
       }
-      moveSlide(carousel, currentSlide, targetSlide);
     }
     if (touchendX < touchstartX) {
-      const currentSlide = carousel.querySelector(".current-slide");
-      let targetSlide;
-      const id = currentSlide.getAttribute("id");
       if (id != slides.length - 1) {
         targetSlide = currentSlide.nextElementSibling;
       } else {
         targetSlide = slides[0];
       }
-      moveSlide(carousel, currentSlide, targetSlide);
     }
+    moveSlide(carousel, currentSlide, targetSlide);
   }
 
   document.addEventListener("touchstart", (e) => {
@@ -383,29 +346,26 @@ window.onload = function () {
 
   //const modal = document.querySelector(".modal");
 
-  const submitFormButton = document.querySelector("#submit-button");
-
   submitFormButton.addEventListener("click", () => {
+    const radios = document.getElementsByTagName("input");
+    let allChecked;
+    for (let i = 0; i < radios.length; i++) {
+      if (radios[i].type === "radio" && radios[i].checked) {
+        allChecked = true;
+      } else {
+        allChecked = false;
+      }
+      console.log(radios[i].checked);
+    }
     if (
-      !document.querySelector("#firstname").value ||
-      !document.querySelector("#lastname").value ||
-      !document.querySelector("#email").value ||
-      !document.querySelector('input[name="attendance"]:checked').value ||
-      !document.querySelector('input[name="plusone"]:checked').value ||
-      !document.querySelector('input[name="babychair"]:checked').value
+      document.querySelector("#firstname").value &&
+      document.querySelector("#lastname").value &&
+      document.querySelector("#email").value &&
+      allChecked == true
 
       //document.querySelector("#plus-one").value.length > 1
     ) {
-      alert("Please complete the form!");
-      // return;
-    } else {
-      /*   console.log(firstName.value, lastName.value); */
       count += 1;
-      const yesNo = document.querySelector(
-        'input[name="attendance"]:checked'
-      ).value;
-
-      // submitFormButton.setAttribute("data-bs-dismiss", "modal");
 
       const guest = {
         firstname: document.querySelector("#firstname").value,
@@ -420,15 +380,21 @@ window.onload = function () {
       };
 
       post(guest);
+
+      // return;
+    } else {
+      alert("Please complete the form!");
     }
   });
-  var resizeTimeout;
-  window.addEventListener("resize", function (event) {
-    clearTimeout(resizeTimeout);
-    resizeTimeout = setTimeout(function () {
-      // window.location.reload();
-    }, 500);
-  });
+  // var resizeTimeout;
+  // window.addEventListener("resize", function (event) {
+  //   clearTimeout(resizeTimeout);
+  //   resizeTimeout = setTimeout(function () {
+  //     // window.location.reload();
+  //     windowSize.width = window.innerWidth;
+  //     windowSize.height = window.innerHeight;
+  //   }, 500);
+  // });
 };
 
 async function post(data) {
