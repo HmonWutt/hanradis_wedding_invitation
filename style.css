@@ -477,7 +477,7 @@ dialog {
 .rotate {
   position: absolute;
   top: 1em;
-  right: 1em;
+  right: 1.5em;
   opacity: 0;
   cursor: pointer;
 }
