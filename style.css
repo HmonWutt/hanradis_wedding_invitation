@@ -6,6 +6,7 @@
 html,
 body {
   overscroll-behavior: none;
+  height: auto;
 }
 a {
   text-decoration: none !important;
@@ -41,7 +42,7 @@ a {
 } */
 
 body {
-  height: 100vh;
+  height: auto;
   margin: 0;
   padding: 0;
   position: relative;
@@ -277,8 +278,8 @@ body {
   height: 100%;
   left: 0;
   top: 0;
-  cursor: grab;
-  /*touch-action: none; */
+  /*cursor: grab;
+  touch-action: none; */
   overflow: hidden;
   z-index: 9;
   background: transparent;
