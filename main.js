@@ -131,7 +131,7 @@ window.onload = function () {
         rotateButton,
 
         {
-          scale: 1.3,
+          scale: 0.9,
           duration: 1,
           yoyo: true,
           repeat: 6,
@@ -220,6 +220,11 @@ window.onload = function () {
       { opacity: 0, scale: 0.5 },
       { opacity: 1, scale: 1, duration: 1.5 }
     );
+    setTimeout(() => {
+      hideCarouselButton.style.backgroundColor = "#f4f4f47f";
+      previousButton.style.backgroundColor = "#f4f4f47f";
+      nextButton.style.backgroundColor = "#f4f4f47f";
+    }, 1600);
   }
 
   function scrollToTop() {
