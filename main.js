@@ -352,21 +352,18 @@ window.onload = function () {
   //const modal = document.querySelector(".modal");
 
   submitFormButton.addEventListener("click", () => {
-    const radios = document.getElementsByTagName("input");
-    let allChecked;
-    for (let i = 0; i < radios.length; i++) {
-      if (radios[i].type === "radio" && radios[i].checked) {
-        allChecked = true;
-      } else {
-        allChecked = false;
+    const allRadioButtons = document.querySelectorAll(".form-check-input");
+    let checkedCount = 0;
+    for (let i = 0; i < allRadioButtons.length; i++) {
+      if (allRadioButtons[i].checked) {
+        checkedCount += 1;
       }
-      console.log(radios[i].checked);
     }
     if (
       document.querySelector("#firstname").value &&
       document.querySelector("#lastname").value &&
       document.querySelector("#email").value &&
-      allChecked == true
+      checkedCount >= 2
 
       //document.querySelector("#plus-one").value.length > 1
     ) {
@@ -378,7 +375,7 @@ window.onload = function () {
         email: document.querySelector("#email").value,
         attendance: document.querySelector('input[name="attendance"]:checked')
           .value,
-        plusone: document.querySelector('input[name="plusone"]:checked').value,
+        // plusone: document.querySelector('input[name="plusone"]:checked').value,
         babychair: document.querySelector('input[name="babychair"]:checked')
           .value,
         //plusone: document.querySelector("#plus-one").value,
@@ -403,31 +400,32 @@ window.onload = function () {
 };
 
 async function post(data) {
-  fetch("http://horaceandradi.choretracker.se/weddingbackend/post", {
-    //fetch("http://localhost:7000/post", {
+  //fetch("https://horaceandradibecome.one/weddingbackend/post", {
+  fetch("http://localhost:7000/post", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
   })
     .then((res) => {
       console.log("Request complete! response:", res);
+      setTimeout(() => {
+        window.location = "/redirect.html";
+      }, 500);
       get();
     })
     .catch((err) => {
       console.log("Post error", err);
-      alert("Opps! Something went wrong. Apologies. Please try again later");
+      window.location = "/error.html";
+      return;
     });
 }
 async function get() {
-  fetch("http://horaceandradi.choretracker.se/weddingbackend/sendMail", {
-    //fetch("http://localhost:7000/sendMail", {
+  //fetch("https://horaceandradibecome.one/weddingbackend/sendMail", {
+  fetch("http://localhost:7000/sendMail", {
     method: "GET",
   })
     .then((res) => {
       console.log("Email send successfully! response:", res);
-      setTimeout(() => {
-        window.location = "/redirect.html";
-      }, 500);
     })
     .catch(function (err) {
       console.log("Email send failed error", err);
