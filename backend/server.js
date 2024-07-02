@@ -57,8 +57,7 @@ app.get("/sendMail", (req, res) => {
       const html = generateTable(rows);
       const mailOptions = {
         from: "wtthumon@gmail.com",
-        cc: "carefree09@gmail.com",
-        to: "hanradi91@gmail.com",
+        to: ["hanradi91@gmail.com", "horace58@ymail.com"],
         subject: "Guest List Update Notification",
         html: html,
       };
