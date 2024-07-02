@@ -51,29 +51,23 @@ app.get("/sendMail", (req, res) => {
   let count = 0;
   db.all("SELECT * FROM guest_list;", (err, rows) => {
     if (err) {
-      count++;
-      console.log("count", count);
-      //res.status(500).send("Retrival from database failed");
-      while (count < 2) {
-        setTimeout(() => {
-          db.all("SELECT * FROM guest_list;", (err, rows) => {
-            if (err) {
-              res.status(500).send("Retrival from database failed");
-            } else {
-              res.status(200).send("Success!");
-
-              const html = generateTable(rows);
-              const mailOptions = {
-                from: "wtthumon@gmail.com",
-                to: ["hanradi91@gmail.com", "horace58@ymail.com"],
-                subject: "Guest List Update Notification",
-                html: html,
-              };
-              sendEmail(mailOptions);
-            }
-          });
-        }, 2000);
-      }
+      setTimeout(() => {
+        db.all("SELECT * FROM guest_list;", (err, rows) => {
+          if (err) {
+            res.status(500).send("Retrival from database failed");
+          } else {
+            //res.status(200).send("Success!");
+            const html = generateTable(rows);
+            const mailOptions = {
+              from: "wtthumon@gmail.com",
+              to: ["hanradi91@gmail.com", "horace58@ymail.com"],
+              subject: "Guest List Update Notification",
+              html: html,
+            };
+            sendEmail(mailOptions);
+          }
+        });
+      }, 2000);
     } else {
       //res.status(200).send("Success!");
 
@@ -92,24 +86,20 @@ app.get("/sendMail", (req, res) => {
 app.get("/download", (req, res) => {
   db.all("SELECT * FROM guest_list;", (err, rows) => {
     if (err) {
-      count++;
-      while (count < 2) {
-        setTimeout(() => {
-          db.all("SELECT * FROM guest_list;", (err, rows) => {
-            if (err) {
-              count++;
-              console.log("count", count);
-            } else {
-              res.setHeader("Content-Type", "text/csv");
-              res.setHeader(
-                "Content-Disposition",
-                "attachment; filename=guestlist.csv"
-              );
-              res.send(generateCSV(rows));
-            }
-          });
-        }, 2000);
-      }
+      setTimeout(() => {
+        db.all("SELECT * FROM guest_list;", (err, rows) => {
+          if (err) {
+            res.status(500).send("Retrival from database failed");
+          } else {
+            res.setHeader("Content-Type", "text/csv");
+            res.setHeader(
+              "Content-Disposition",
+              "attachment; filename=guestlist.csv"
+            );
+            res.send(generateCSV(rows));
+          }
+        });
+      }, 2000);
     } else {
       res.setHeader("Content-Type", "text/csv");
       res.setHeader(
