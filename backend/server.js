@@ -48,16 +48,39 @@ app.delete("/deleteAll", (req, res) => {
   });
 });
 app.get("/sendMail", (req, res) => {
+  let count = 0;
   db.all("SELECT * FROM guest_list;", (err, rows) => {
     if (err) {
-      res.status(500).send("Retrival from database failed");
+      count++;
+      console.log("count", count);
+      //res.status(500).send("Retrival from database failed");
+      while (count < 2) {
+        setTimeout(() => {
+          db.all("SELECT * FROM guest_list;", (err, rows) => {
+            if (err) {
+              res.status(500).send("Retrival from database failed");
+            } else {
+              res.status(200).send("Success!");
+
+              const html = generateTable(rows);
+              const mailOptions = {
+                from: "wtthumon@gmail.com",
+                to: ["hanradi91@gmail.com", "horace58@ymail.com"],
+                subject: "Guest List Update Notification",
+                html: html,
+              };
+              sendEmail(mailOptions);
+            }
+          });
+        }, 2000);
+      }
     } else {
-      res.status(200).send("Success!");
+      //res.status(200).send("Success!");
 
       const html = generateTable(rows);
       const mailOptions = {
         from: "wtthumon@gmail.com",
-        to: ["hanradi91@gmail.com", "horace58@ymail.com"],
+        to: "wtthumon@gmail.com",
         subject: "Guest List Update Notification",
         html: html,
       };
@@ -66,6 +89,37 @@ app.get("/sendMail", (req, res) => {
   });
 });
 
+app.get("/download", (req, res) => {
+  db.all("SELECT * FROM guest_list;", (err, rows) => {
+    if (err) {
+      count++;
+      while (count < 2) {
+        setTimeout(() => {
+          db.all("SELECT * FROM guest_list;", (err, rows) => {
+            if (err) {
+              count++;
+              console.log("count", count);
+            } else {
+              res.setHeader("Content-Type", "text/csv");
+              res.setHeader(
+                "Content-Disposition",
+                "attachment; filename=guestlist.csv"
+              );
+              res.send(generateCSV(rows));
+            }
+          });
+        }, 2000);
+      }
+    } else {
+      res.setHeader("Content-Type", "text/csv");
+      res.setHeader(
+        "Content-Disposition",
+        "attachment; filename=guestlist.csv"
+      );
+      res.send(generateCSV(rows));
+    }
+  });
+});
 function sendEmail(mailOptions) {
   const transporter = nodemailer.createTransport({
     service: "gmail",
@@ -89,6 +143,17 @@ function sendEmail(mailOptions) {
   });
 }
 
+function generateCSV(data) {
+  let csv = "";
+  data.map((guest) => {
+    const gueststring = Object.values(guest).join(",") + "\n";
+    csv += gueststring;
+  });
+  //const headings = Object.keys(data[0]).join(",")
+  return (
+    "First name, Last name, Email, Attandence (0=No 1=Yes), Baby chair \n" + csv
+  );
+}
 function generateTable(data) {
   let totalAttendees = 0;
   let totalBabychair = 0;
@@ -128,6 +193,8 @@ function generateTable(data) {
         ${rows}
       </tbody>
     </table>
+    <a href="http://localhost:7000/download" download="guestlist.csv" >Download guest list as a .csv file</a>
+  <h3>For the excel sheet (.csv file), "0" means "No", "1" means "Yes"</h3>
 
   `;
 }
