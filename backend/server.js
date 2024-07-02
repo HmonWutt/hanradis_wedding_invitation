@@ -19,14 +19,13 @@ app.get("/getall", (req, res) => {
 });
 
 app.post("/post", (req, res) => {
-  let { firstname, lastname, email, attendance, plusone, babychair } = req.body;
+  let { firstname, lastname, email, attendance, babychair } = req.body;
   const attendance_num = Number(attendance);
-  const plusone_num = Number(plusone);
   const babychair_num = Number(babychair);
 
   db.run(
-    "INSERT INTO guest_list (firstname, lastname, email, coming, plusone, babychair) VALUES (?, ?, ?, ?, ?,?)",
-    [firstname, lastname, email, attendance_num, plusone_num, babychair_num],
+    "INSERT INTO guest_list (firstname, lastname, email, coming, babychair) VALUES (?, ?, ?, ?,?)",
+    [firstname, lastname, email, attendance_num, babychair_num],
     (err) => {
       if (err) {
         console.error(err.message);
@@ -58,9 +57,8 @@ app.get("/sendMail", (req, res) => {
       const html = generateTable(rows);
       const mailOptions = {
         from: "wtthumon@gmail.com",
-        //cc: "wtthumon@gmail.com",
-        //to: "hanradi91@gmail.com",
-        to: "wtthumon@gmail.com",
+        cc: "carefree09@gmail.com",
+        to: "hanradi91@gmail.com",
         subject: "Guest List Update Notification",
         html: html,
       };
@@ -97,7 +95,7 @@ function generateTable(data) {
   let totalBabychair = 0;
   let rows = data
     .map((guest) => {
-      const totalOfThisGuest = guest.coming + guest.plusone;
+      const totalOfThisGuest = guest.coming; //+ guest.plusone;
 
       totalAttendees += totalOfThisGuest;
       totalBabychair += guest.babychair;
@@ -108,7 +106,6 @@ function generateTable(data) {
         <td style="border: 1px solid black;">${guest.lastname}</td>
         <td style="border: 1px solid black;">${guest.email}</td>
         <td style="border: 1px solid black;">${guest.coming}</td>
-        <td style="border: 1px solid black;">${guest.plusone}</td>
          <td style="border: 1px solid black;">${guest.babychair}</td>
       </tr>
     `;
@@ -125,7 +122,6 @@ function generateTable(data) {
           <th style="border: 1px solid black;">Last Name</th>
           <th style="border: 1px solid black;">Email</th>
           <th style="border: 1px solid black;">Attendance</th>
-          <th style="border: 1px solid black;">Plus One</th>
           <th style="border: 1px solid black;">Baby chair</th>
         </tr>
       </thead>
