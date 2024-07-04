@@ -349,8 +349,6 @@ window.onload = function () {
 
   //////////////////////////////////////////////
 
-  //const modal = document.querySelector(".modal");
-
   submitFormButton.addEventListener("click", () => {
     const allRadioButtons = document.querySelectorAll(".form-check-input");
     let checkedCount = 0;
@@ -364,8 +362,6 @@ window.onload = function () {
       document.querySelector("#lastname").value &&
       document.querySelector("#email").value &&
       checkedCount >= 2
-
-      //document.querySelector("#plus-one").value.length > 1
     ) {
       count += 1;
 
@@ -375,10 +371,9 @@ window.onload = function () {
         email: document.querySelector("#email").value,
         attendance: document.querySelector('input[name="attendance"]:checked')
           .value,
-        // plusone: document.querySelector('input[name="plusone"]:checked').value,
+
         babychair: document.querySelector('input[name="babychair"]:checked')
           .value,
-        //plusone: document.querySelector("#plus-one").value,
       };
 
       post(guest);
@@ -388,59 +383,25 @@ window.onload = function () {
       alert("Please complete the form!");
     }
   });
-  // var resizeTimeout;
-  // window.addEventListener("resize", function (event) {
-  //   clearTimeout(resizeTimeout);
-  //   resizeTimeout = setTimeout(function () {
-  //     // window.location.reload();
-  //     windowSize.width = window.innerWidth;
-  //     windowSize.height = window.innerHeight;
-  //   }, 500);
-  // });
 };
 
 async function post(data) {
-  //fetch("https://horaceandradibecome.one/weddingbackend/post", {
-  fetch("http://localhost:7000/post", {
+  fetch("https://horaceandradibecome.one/weddingbackend/post", {
+    //fetch("http://localhost:7000/post", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
   })
     .then((res) => {
-      console.log("Request complete! response:", res);
-      setTimeout(() => {
+      console.log(res);
+      if (res.status === 500) {
+        window.location = "/error.html";
+      } else {
         window.location = "/redirect.html";
-      }, 500);
-      get();
+      }
     })
     .catch((err) => {
-      console.log("Post error", err);
       window.location = "/error.html";
       return;
     });
 }
-async function get() {
-  //fetch("https://horaceandradibecome.one/weddingbackend/sendMail", {
-  fetch("http://localhost:7000/sendMail", {
-    method: "GET",
-  })
-    .then((res) => {
-      console.log("Email send successfully! response:", res);
-    })
-    .catch(function (err) {
-      console.log("Email send failed error", err);
-    });
-}
-
-// function updateDiv() {
-//   $(".envelope").load(window.location.href + " .envelope");
-//   $(".letter-content").load(window.location.href + " .letter-content");
-//   if ($(".carousel-container").length) {
-//     $(".carousel-container").load(
-//       window.location.href + " .carousel-container"
-//     );
-//   }
-//   if ($(".current-slide").length) {
-//     $(".current-slide").load(window.location.href + " .current-slide");
-//   }
-// }
