@@ -18,20 +18,44 @@ app.get("/getall", (req, res) => {
   });
 });
 
+function emailer() {
+  db.all("SELECT * FROM guest_list;", (err, rows) => {
+    if (err) {
+      console.log("Retrieval from database failed.");
+    } else {
+      //res.status(200).send("Success!");
+
+      const html = generateTable(rows);
+      const mailOptions = {
+        from: "wtthumon@gmail.com",
+        to: "wtthumon@gmail.com",
+        subject: "Guest List Update Notification",
+        html: html,
+      };
+      sendEmail(mailOptions);
+    }
+  });
+}
+
+let firstname, lastname, email;
 app.post("/post", (req, res) => {
-  let { firstname, lastname, email, attendance, babychair } = req.body;
-  const attendance_num = Number(attendance);
-  const babychair_num = Number(babychair);
+  firstname = req.body.firstname;
+  lastname = req.body.lastname;
+  email = req.body.email;
+
+  const attendance_num = Number(req.body.attendance);
+  const babychair_num = Number(req.body.babychair);
 
   db.run(
     "INSERT INTO guest_list (firstname, lastname, email, coming, babychair) VALUES (?, ?, ?, ?,?)",
     [firstname, lastname, email, attendance_num, babychair_num],
-    (err) => {
+    (err, _) => {
       if (err) {
-        console.error(err.message);
         res.status(500).send("Insert into database failed");
+        //res.status(500).redirect("/error");
       } else {
-        res.status(200).send("Success!");
+        emailer();
+        res.status(200).send("Success");
       }
     }
   );
@@ -47,30 +71,14 @@ app.delete("/deleteAll", (req, res) => {
     }
   });
 });
+
 app.get("/sendMail", (req, res) => {
   let count = 0;
   db.all("SELECT * FROM guest_list;", (err, rows) => {
     if (err) {
-      setTimeout(() => {
-        db.all("SELECT * FROM guest_list;", (err, rows) => {
-          if (err) {
-            res.status(500).send("Retrival from database failed");
-          } else {
-            //res.status(200).send("Success!");
-            const html = generateTable(rows);
-            const mailOptions = {
-              from: "wtthumon@gmail.com",
-              to: ["hanradi91@gmail.com", "horace58@ymail.com"],
-              subject: "Guest List Update Notification",
-              html: html,
-            };
-            sendEmail(mailOptions);
-          }
-        });
-      }, 2000);
+      console.log("Retrieval from database failed.");
     } else {
       //res.status(200).send("Success!");
-
       const html = generateTable(rows);
       const mailOptions = {
         from: "wtthumon@gmail.com",
@@ -110,6 +118,43 @@ app.get("/download", (req, res) => {
     }
   });
 });
+
+app.get("/postSuccess", (req, res) => {
+  db.all("SELECT * FROM guest_list;", (err, rows) => {
+    let isExists = false;
+    if (err) {
+      console.log("Post update failed");
+    } else {
+      const guests = rows;
+      for (let guest of guests) {
+        if (
+          guest.firstname == firstname &&
+          guest.lastname == lastname &&
+          guest.email == email
+        ) {
+          isExists = true;
+          break;
+        }
+      }
+
+      isExists = false;
+      console.log("isExists", isExists);
+      if (isExists == true) {
+        console.log("success");
+        const html = generateTable(guests);
+        const mailOptions = {
+          from: "wtthumon@gmail.com",
+          to: "wtthumon@gmail.com",
+          subject: "Guest List Update Notification",
+          html: html,
+        };
+        sendEmail(mailOptions);
+        res.send("Post update success");
+      }
+    }
+  });
+});
+
 function sendEmail(mailOptions) {
   const transporter = nodemailer.createTransport({
     service: "gmail",
