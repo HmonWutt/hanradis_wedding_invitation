@@ -28,7 +28,7 @@ function emailer() {
       const html = generateTable(rows);
       const mailOptions = {
         from: "wtthumon@gmail.com",
-        to: "wtthumon@gmail.com",
+        to: ["hanradi91@gmail.com", "horace58@ymail.com"],
         subject: "Guest List Update Notification",
         html: html,
       };
