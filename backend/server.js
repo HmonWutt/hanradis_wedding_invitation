@@ -72,6 +72,22 @@ app.delete("/deleteAll", (req, res) => {
   });
 });
 
+app.delete("/deleteOne", (req, res) => {
+  const firstname = req.body.firstname;
+  const lastname = req.body.lastname;
+  db.run(
+    `DELETE FROM guest_list WHERE firstname="${firstname}" AND lastname="${lastname}"`,
+    function (err, rows) {
+      if (err) {
+        console.error(err.message);
+        return res.status(500).send(err.message);
+      } else {
+        return res.status(200).send("Deleted entry successfully.");
+      }
+    }
+  );
+});
+
 app.get("/sendMail", (req, res) => {
   let count = 0;
   db.all("SELECT * FROM guest_list;", (err, rows) => {
@@ -228,7 +244,7 @@ function generateTable(data) {
         ${rows}
       </tbody>
     </table>
-    <a href="http://localhost:7000/download" download="guestlist.csv" >Download guest list as a .csv file</a>
+    <a href="https://horaceandradibecome.one/weddingbackend/download" download="guestlist.csv" >Download guest list as a .csv file</a>
   <h3>For the excel sheet (.csv file), "0" means "No", "1" means "Yes"</h3>
 
   `;
